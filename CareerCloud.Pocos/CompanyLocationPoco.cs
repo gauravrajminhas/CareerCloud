@@ -15,6 +15,8 @@ namespace CareerCloud.Pocos
         public Guid Id { get; set; }
         public Guid Company { get; set; }
 
+        public String Province { get; set; }
+
         [Column("Country_Code")] public String CountryCode { get; set; }
         [Column("State_Province_Code")] public String StateProvinceCode { get; set; }
         [Column("Street_Address")] public String StreetAddress { get; set; }

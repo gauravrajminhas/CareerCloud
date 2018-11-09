@@ -16,6 +16,7 @@ namespace CareerCloud.Pocos
         public String Login { get; set; }
         public String Password { get; set; }
 
+        public string Created { get; set; }
         [Column("Created_Date")] public DateTime CreatedDate { get; set; }
         [Column("Password_Update_Date")] public DateTime PasswordUpdateDate { get; set; }
         [Column("Agreement_Accepted_Date")] public DateTime AgreementAcceptedDate { get; set; }
@@ -57,4 +58,4 @@ namespace CareerCloud.Pocos
 
 
 }
-}
+

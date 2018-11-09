@@ -16,6 +16,8 @@ namespace CareerCloud.Pocos
 
         public Guid Job { get; set; }
 
+        public String Skill { get; set; }
+
         [Column("Skill_Level")]
         public String SkillLevel { get; set; }
 

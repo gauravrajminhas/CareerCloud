@@ -20,7 +20,7 @@ namespace CareerCloud.Pocos
 
         [Column("Job_Name")] public String JobName { get; set; }
 
-        [Column("Job_Descriptions")] public String JobDescription { get; set; }
+        [Column("Job_Descriptions")] public String JobDescriptions { get; set; }
 
 
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
