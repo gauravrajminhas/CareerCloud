@@ -12,6 +12,7 @@ namespace CareerCloud.Pocos
     class ApplicantProfilePoco : IPoco
     {
         [Key]
+
         public Guid Id { get; set; }
 
         public Guid Login { get; set; }
