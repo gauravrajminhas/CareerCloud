@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Roles")]
-    class SecurityRolePoco : IPoco
+    public class SecurityRolePoco : IPoco
     {
         [Key]
         public Guid Id { get; set; }
 
         public String Role { get; set; }
-        public Boolean  IsInactive { get; set; }
+        [Column("Is_Inactive")]
+        public bool  IsInactive { get; set; }
 
 
 

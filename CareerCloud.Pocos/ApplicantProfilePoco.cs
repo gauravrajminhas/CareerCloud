@@ -26,17 +26,20 @@ namespace CareerCloud.Pocos
         public String Currency { get; set; }
 
         [Column("Country_Code")]
-        public string CountryCode { get; set; }
+        public string Country { get; set; }
+
+       // [Column("Country")]
+       // public string Country { get; set; }
 
         [Column("State_Province_Code")]
-        public String StateProvinceCode { get; set; }
+        public String Province { get; set; }
 
         [Column("Street_Address")]
-        public string Street_Address { get; set; }
+        public string Street { get; set; }
 
-        [Column("City_Town")] public String CityTown { get; set; }
+        [Column("City_Town")] public String City { get; set; }
 
-        [Column("Zip_Postal_Code")] public String ZipPostalCode { get; set; }
+        [Column("Zip_Postal_Code")] public String PostalCode { get; set; }
 
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
