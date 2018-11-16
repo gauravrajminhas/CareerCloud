@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F073E4F-E53A-428B-A284-1D37E01D7A66}</ProjectGuid>
+    <ProjectGuid>{002B0044-A9A4-4018-A6F4-81130CDE6A27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CareerCloud.DataAccessLayer</RootNamespace>
-    <AssemblyName>CareerCloud.DataAccessLayer</AssemblyName>
+    <RootNamespace>CareerCloud.ADODataAccessLayer</RootNamespace>
+    <AssemblyName>CareerCloud.ADODataAccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,8 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDataRepository.cs" />
+    <Compile Include="ApplicantEducationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CareerCloud.DataAccessLayer\CareerCloud.DataAccessLayer.csproj">
+      <Project>{0f073e4f-e53a-428b-a284-1d37e01d7a66}</Project>
+      <Name>CareerCloud.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CareerCloud.Pocos\CareerCloud.Pocos.csproj">
+      <Project>{56ec6d03-0b56-499a-bc1a-a0b58a2b9373}</Project>
+      <Name>CareerCloud.Pocos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CareerCloud.UnitTests.Assignment1\CareerCloud.UnitTests.Assignment1.csproj">
+      <Project>{0ef4f160-68b1-491a-925f-064d66ec3283}</Project>
+      <Name>CareerCloud.UnitTests.Assignment1</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
