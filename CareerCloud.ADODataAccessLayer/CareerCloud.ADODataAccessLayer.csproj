@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicantEducationRepository.cs" />
+    <Compile Include="BaseADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,10 +55,9 @@
       <Project>{56ec6d03-0b56-499a-bc1a-a0b58a2b9373}</Project>
       <Name>CareerCloud.Pocos</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CareerCloud.UnitTests.Assignment1\CareerCloud.UnitTests.Assignment1.csproj">
-      <Project>{0ef4f160-68b1-491a-925f-064d66ec3283}</Project>
-      <Name>CareerCloud.UnitTests.Assignment1</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
