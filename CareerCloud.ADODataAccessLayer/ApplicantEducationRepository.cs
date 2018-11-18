@@ -50,40 +50,72 @@ namespace CareerCloud.ADODataAccessLayer
             ApplicantEducationPoco[] pocos = new ApplicantEducationPoco[arraySize];
             using (SqlConnection connObject = new SqlConnection(connectionString))
             {
-                
-                queryString = "Select * from Applicant_Educations";
-                connObject.Open();
 
-                SqlCommand selectAllCommandObject = new SqlCommand(queryString, connObject);
-                SqlDataReader dataReader = selectAllCommandObject.ExecuteReader();
-
-                position = 0;
-
-                while (dataReader.Read())
+                try
                 {
-                    ApplicantEducationPoco myPoco = new ApplicantEducationPoco();
+                    queryString = "Select * from Applicant_Educations";
 
-                    // BUG handle the not nulls ! 
-                    myPoco.Id = dataReader.GetGuid(0);
-                    myPoco.Applicant = dataReader.GetGuid(1);
-                    myPoco.Major = dataReader.GetString(2);
-                    myPoco.CertificateDiploma = dataReader.GetString(3);
-                    myPoco.StartDate = dataReader.GetDateTime(4);
-                    myPoco.CompletionDate = dataReader.GetDateTime(5);
-                    myPoco.CompletionPercent = dataReader.GetByte(6);
+                    connObject.Open();
 
-                    pocos[position] = myPoco; 
+                    SqlCommand selectAllCommandObject = new SqlCommand(queryString, connObject);
+                    SqlDataReader dataReader = selectAllCommandObject.ExecuteReader();
 
-                    position++;
+                    position = 0;
+
+                    while (dataReader.Read())
+                    {
+                        ApplicantEducationPoco myPoco = new ApplicantEducationPoco();
+
+                       
+                        myPoco.Id = dataReader.GetGuid(0);
+                        myPoco.Applicant = dataReader.GetGuid(1);
+                        myPoco.Major = dataReader.GetString(2);
+                        myPoco.CertificateDiploma = dataReader.GetString(3);
+
+                        // BUG-Fixed ! handle the not nulls ! 
+                        if (!dataReader.IsDBNull(4))
+                        {
+                            myPoco.StartDate = dataReader.GetDateTime(4);
+                        }
+                        else
+                        {
+                            myPoco.StartDate = null;
+                        }
+
+                        if (!dataReader.IsDBNull(5))
+                        {
+                            myPoco.CompletionDate = dataReader.GetDateTime(5);
+                        }
+                        else
+                        {
+                            myPoco.CompletionDate = null;
+                        }
+
+                        if (!dataReader.GetByte(6))
+                        {
+                            myPoco.CompletionPercent = dataReader.GetByte(6);
+                        }
+                        else
+                        {
+                            myPoco.CompletionPercent = null;
+                        }
+
+                        myPoco.TimeStamp = (byte[]) dataReader[7];
+
+                        pocos[position] = myPoco;
+                        position++;
+                    }
                 }
-
-                connObject.Close();
-
+                catch (Exception e)
+                {
+                    System.Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    connObject.Close();
+                }
             }
-
             return pocos;
-
-
         }
 
         public IList<ApplicantEducationPoco> GetList(Expression<Func<ApplicantEducationPoco, bool>> where, params Expression<Func<ApplicantEducationPoco, object>>[] navigationProperties)
@@ -100,11 +132,9 @@ namespace CareerCloud.ADODataAccessLayer
                 try
                 {
                     mySqlConnection.Open();
-
                     // have to parameterize this ! 
                     queryString = "select * from Applicant_Educations where Id = @ID";
                     
-
                     SqlCommand commandObj = new SqlCommand(queryString, mySqlConnection);
                     SqlDataReader dataReader = commandObj.ExecuteReader();
 
