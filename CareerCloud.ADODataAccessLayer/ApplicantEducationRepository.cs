@@ -36,19 +36,6 @@ namespace CareerCloud.ADODataAccessLayer
 
             }
             
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
@@ -60,30 +47,41 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             //Are we returning the values by creating a new Application Education Poco ?
-            ApplicantEducationPoco[] pocos = new ApplicantEducationPoco[500];
-            int position = 0;
-
+            ApplicantEducationPoco[] pocos = new ApplicantEducationPoco[arraySize];
             using (SqlConnection connObject = new SqlConnection(connectionString))
             {
-
-                string selectAllQuery = "Select * from Applicant_Educations";
+                
+                queryString = "Select * from Applicant_Educations";
                 connObject.Open();
 
-                SqlCommand selectAllCommandObject = new SqlCommand(selectAllQuery,connObject);
+                SqlCommand selectAllCommandObject = new SqlCommand(queryString, connObject);
                 SqlDataReader dataReader = selectAllCommandObject.ExecuteReader();
 
-                while(dataReader.Read())
+                position = 0;
+
+                while (dataReader.Read())
                 {
-                    pocos[position].Id = dataReader.GetGuid(0);
+                    ApplicantEducationPoco myPoco = new ApplicantEducationPoco();
+
+                    // BUG handle the not nulls ! 
+                    myPoco.Id = dataReader.GetGuid(0);
+                    myPoco.Applicant = dataReader.GetGuid(1);
+                    myPoco.Major = dataReader.GetString(2);
+                    myPoco.CertificateDiploma = dataReader.GetString(3);
+                    myPoco.StartDate = dataReader.GetDateTime(4);
+                    myPoco.CompletionDate = dataReader.GetDateTime(5);
+                    myPoco.CompletionPercent = dataReader.GetByte(6);
+
+                    pocos[position] = myPoco; 
+
                     position++;
                 }
 
                 connObject.Close();
 
             }
+
             return pocos;
-
-
 
 
         }
@@ -95,7 +93,44 @@ namespace CareerCloud.ADODataAccessLayer
 
         public ApplicantEducationPoco GetSingle(Expression<Func<ApplicantEducationPoco, bool>> where, params Expression<Func<ApplicantEducationPoco, object>>[] navigationProperties)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            ApplicantEducationPoco myPoco = new ApplicantEducationPoco();
+            using (SqlConnection mySqlConnection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    mySqlConnection.Open();
+
+                    // have to parameterize this ! 
+                    queryString = "select * from Applicant_Educations where Id = @ID";
+                    
+
+                    SqlCommand commandObj = new SqlCommand(queryString, mySqlConnection);
+                    SqlDataReader dataReader = commandObj.ExecuteReader();
+
+                    myPoco.Id = dataReader.GetGuid(0);
+                    myPoco.Applicant = dataReader.GetGuid(1);
+                    myPoco.Major = dataReader.GetString(2);
+                    myPoco.CertificateDiploma = dataReader.GetString(3);
+                    myPoco.StartDate = dataReader.GetDateTime(4);
+                    myPoco.CompletionDate = dataReader.GetDateTime(5);
+                    myPoco.CompletionPercent = dataReader.GetByte(6);
+
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    mySqlConnection.Close();
+                }
+
+
+            }
+
+            return myPoco;
+
         }
 
         public void Remove(params ApplicantEducationPoco[] items)
