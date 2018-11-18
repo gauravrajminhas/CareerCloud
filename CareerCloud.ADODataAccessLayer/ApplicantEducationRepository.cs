@@ -10,27 +10,32 @@ namespace CareerCloud.ADODataAccessLayer
 {
     public class ApplicantEducationRepository : BaseADO, IDataRepository<ApplicantEducationPoco>
     {
-        public void Add(params ApplicantEducationPoco[] items)
+        public void Add(params ApplicantEducationPoco[] pocos)
         {
             //throw new NotImplementedException();
-
-            String addQuery;
-               addQuery = "insert into Applicant_Educations ( Applicant, Major, Certificate_Diploma,Start_Date, Completion_Date, Completion_Percent)" +
-                               "values()";
-
             using (SqlConnection connObject = new SqlConnection(connectionString))
             {
-                SqlCommand commandObject = new SqlCommand(addQuery,connObject);
+                //BUG parameterize this query
+                position = 0;
 
-                foreach (var row in items)
+                foreach (var record in pocos)
                 {
 
-                    addQuery = "insert into Applicant_Educations ( Applicant, Major, Certificate_Diploma,Start_Date, Completion_Date, Completion_Percent)" +
-                               "values()";
-                    
+                    queryString = @"insert into Applicant_Educations ( Id, Applicant, Major, Certificate_Diploma, Start_Date, Completion_Date, Completion_Percent, Time_Stamp)" +
+                                  "values(@Id, @Applicant, @Major, @Certificate_Diploma, @Start_Date, @Completion_Date, @Completion_Percent, @Time_Stamp)";
+
+                    SqlCommand commandObject = new SqlCommand(queryString, connObject);
+                    commandObject.Parameters.AddWithValue("@Id", record.Id);
+                    commandObject.Parameters.AddWithValue("@Applicant", record.Applicant);
+                    commandObject.Parameters.AddWithValue("@Major", record.Major);
+                    commandObject.Parameters.AddWithValue("@Certificate_Diploma", record.CertificateDiploma);
+                    commandObject.Parameters.AddWithValue("@Start_Date", record.StartDate);
+                    commandObject.Parameters.AddWithValue("@Completion_Date", record.CompletionDate);
+                    commandObject.Parameters.AddWithValue("@Completion_Percent", record.CompletionPercent);
+                    commandObject.Parameters.AddWithValue("@Time_Stamp", record.TimeStamp);
 
                     connObject.Open();
-                    writerObject.Execute(addQuery);
+                    writerObject.Execute(queryString);
                     connObject.Close();
                 }
 
@@ -53,7 +58,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                 try
                 {
-                    queryString = "Select * from Applicant_Educations";
+                    queryString = @"Select * from Applicant_Educations";
 
                     connObject.Open();
 
@@ -133,7 +138,7 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     mySqlConnection.Open();
                     // have to parameterize this ! 
-                    queryString = "select * from Applicant_Educations where Id = @ID";
+                    queryString = @"select * from Applicant_Educations where Id = @ID";
                     
                     SqlCommand commandObj = new SqlCommand(queryString, mySqlConnection);
                     SqlDataReader dataReader = commandObj.ExecuteReader();
