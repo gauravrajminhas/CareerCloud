@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data.SqlClient;
 
 
 namespace CareerCloud.ADODataAccessLayer
@@ -10,11 +11,14 @@ namespace CareerCloud.ADODataAccessLayer
         //public static String connectionString = @"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         
         // Using configration manager 
-        protected String connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
+        // also why do i have to again and again create a Connection Object ? 
+        protected static String connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
+        SqlConnection connectionObject = new SqlConnection(connectionString);
+        protected String queryString;
 
         protected const int arraySize = 500;
         protected int position = 0, rowsAffected =0;
-        protected String queryString;
+        
     }
 
 }

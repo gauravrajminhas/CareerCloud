@@ -89,7 +89,7 @@ namespace CareerCloud.ADODataAccessLayer
             return pocos.ToList();
         }
 
-        // completed with doubts ! 
+        // completed with doubts !  what about time stamp ?
         public void Update(params ApplicantEducationPoco[] pocos)
         {
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
@@ -183,6 +183,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                     foreach (var row in pocos)
                     {
+                        
                         commandObject.Parameters.AddWithValue("@Id", row.Id);
                         commandObject.ExecuteReader();
                     }
