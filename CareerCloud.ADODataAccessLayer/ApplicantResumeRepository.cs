@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.Pocos;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantResumeRepository : BaseADO, IDataRepository<ApplicantResumeRepository>
+    public class ApplicantResumeRepository : BaseADO, IDataRepository<ApplicantResumePoco>
     {
-        public void Add(params ApplicantResumeRepository[] items)
+        public void Add(params ApplicantResumePoco[] pocos)
         {
             throw new NotImplementedException();
         }
@@ -17,27 +18,27 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
-        public IList<ApplicantResumeRepository> GetAll(params Expression<Func<ApplicantResumeRepository, object>>[] navigationProperties)
+        public IList<ApplicantResumePoco> GetAll(params Expression<Func<ApplicantResumePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public IList<ApplicantResumeRepository> GetList(Expression<Func<ApplicantResumeRepository, bool>> where, params Expression<Func<ApplicantResumeRepository, object>>[] navigationProperties)
+        public IList<ApplicantResumePoco> GetList(Expression<Func<ApplicantResumePoco, bool>> where, params Expression<Func<ApplicantResumePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public ApplicantResumeRepository GetSingle(Expression<Func<ApplicantResumeRepository, bool>> where, params Expression<Func<ApplicantResumeRepository, object>>[] navigationProperties)
+        public ApplicantResumePoco GetSingle(Expression<Func<ApplicantResumePoco, bool>> where, params Expression<Func<ApplicantResumePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(params ApplicantResumeRepository[] items)
+        public void Remove(params ApplicantResumePoco[] pocos)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(params ApplicantResumeRepository[] items)
+        public void Update(params ApplicantResumePoco[] pocos)
         {
             throw new NotImplementedException();
         }

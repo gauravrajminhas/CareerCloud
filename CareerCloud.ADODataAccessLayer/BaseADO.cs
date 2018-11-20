@@ -13,7 +13,7 @@ namespace CareerCloud.ADODataAccessLayer
         // Using configration manager 
         // also why do i have to again and again create a Connection Object ? 
         protected static String connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
-        SqlConnection connectionObject = new SqlConnection(connectionString);
+        protected SqlConnection connectionObject = new SqlConnection(connectionString);
         protected String queryString;
 
         protected const int arraySize = 500;

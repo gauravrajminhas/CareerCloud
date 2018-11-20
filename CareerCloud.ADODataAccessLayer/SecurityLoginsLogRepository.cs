@@ -2,42 +2,43 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.Pocos;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SecurityLoginsLogRepository : BaseADO, IDataRepository<SecurityLoginsLogRepository>
+    public class SecurityLoginsLogRepository : BaseADO, IDataRepository<SecurityLoginsLogPoco>
     {
-        public void Add(params SecurityLoginsLogRepository[] items)
+        public IList<SecurityLoginsLogPoco> GetAll(params Expression<Func<SecurityLoginsLogPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<SecurityLoginsLogPoco> GetList(Expression<Func<SecurityLoginsLogPoco, bool>> @where, params Expression<Func<SecurityLoginsLogPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SecurityLoginsLogPoco GetSingle(Expression<Func<SecurityLoginsLogPoco, bool>> @where, params Expression<Func<SecurityLoginsLogPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(params SecurityLoginsLogPoco[] pocos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(params SecurityLoginsLogPoco[] pocos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(params SecurityLoginsLogPoco[] pocos)
         {
             throw new NotImplementedException();
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<SecurityLoginsLogRepository> GetAll(params Expression<Func<SecurityLoginsLogRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<SecurityLoginsLogRepository> GetList(Expression<Func<SecurityLoginsLogRepository, bool>> where, params Expression<Func<SecurityLoginsLogRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public SecurityLoginsLogRepository GetSingle(Expression<Func<SecurityLoginsLogRepository, bool>> where, params Expression<Func<SecurityLoginsLogRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(params SecurityLoginsLogRepository[] items)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(params SecurityLoginsLogRepository[] items)
         {
             throw new NotImplementedException();
         }

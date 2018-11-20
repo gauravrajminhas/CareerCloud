@@ -2,42 +2,43 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.Pocos;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class CompanyJobRepository : BaseADO, IDataRepository<CompanyJobRepository>
+    public class CompanyJobRepository : BaseADO, IDataRepository<CompanyJobPoco>
     {
-        public void Add(params CompanyJobRepository[] items)
+        public IList<CompanyJobPoco> GetAll(params Expression<Func<CompanyJobPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<CompanyJobPoco> GetList(Expression<Func<CompanyJobPoco, bool>> @where, params Expression<Func<CompanyJobPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CompanyJobPoco GetSingle(Expression<Func<CompanyJobPoco, bool>> @where, params Expression<Func<CompanyJobPoco, object>>[] navigationProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(params CompanyJobPoco[] pocos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(params CompanyJobPoco[] pocos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(params CompanyJobPoco[] pocos)
         {
             throw new NotImplementedException();
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<CompanyJobRepository> GetAll(params Expression<Func<CompanyJobRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<CompanyJobRepository> GetList(Expression<Func<CompanyJobRepository, bool>> where, params Expression<Func<CompanyJobRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CompanyJobRepository GetSingle(Expression<Func<CompanyJobRepository, bool>> where, params Expression<Func<CompanyJobRepository, object>>[] navigationProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(params CompanyJobRepository[] items)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(params CompanyJobRepository[] items)
         {
             throw new NotImplementedException();
         }

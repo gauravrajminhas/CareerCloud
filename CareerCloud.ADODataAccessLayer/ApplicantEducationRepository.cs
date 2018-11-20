@@ -86,7 +86,7 @@ namespace CareerCloud.ADODataAccessLayer
                 }
             }
             // why did we do this ?
-            return pocos.ToList();
+            return pocos.Where(a => a != null).ToList();
         }
 
         // completed with doubts !  what about time stamp ?

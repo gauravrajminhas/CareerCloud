@@ -111,7 +111,7 @@ namespace CareerCloud.ADODataAccessLayer
 
             }
 
-            return pocos.ToList();
+            return pocos.Where( a=>a!=null).ToList();
 
         }
 
@@ -154,7 +154,13 @@ namespace CareerCloud.ADODataAccessLayer
         // doubt : will use the commandObject from base class ! 
         public void Update(params ApplicantProfilePoco[] pocos)
         {
-            throw new NotImplementedException();
+            queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Profiles] set Login = @Login, Current_Salary = @Current_Salary, Current_Rate = @Current_Rate, Currency = @Currency, Country_Code = @Country_Code, State_Province_Code = @State_Province_Code, Street_Address = @Street_Address, City_Town = @City_Town, Zip_Postal_Code = @Zip_Postal_Code, Time_Stamp = @Time_Stamp";
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
+
+            }
+
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Sockets;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.Pocos;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SystemLanguageCodeRepository : BaseADO, IDataRepository<SystemLanguageCodeRepository>
+    public class SystemLanguageCodeRepository : BaseADO, IDataRepository<SystemLanguageCodePoco>
     {
-        public void Add(params SystemLanguageCodeRepository[] items)
+        public void Add(params SystemLanguageCodePoco[] pocos)
         {
             throw new NotImplementedException();
         }
@@ -17,27 +21,27 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
-        public IList<SystemLanguageCodeRepository> GetAll(params Expression<Func<SystemLanguageCodeRepository, object>>[] navigationProperties)
+        public IList<SystemLanguageCodePoco> GetAll(params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public IList<SystemLanguageCodeRepository> GetList(Expression<Func<SystemLanguageCodeRepository, bool>> where, params Expression<Func<SystemLanguageCodeRepository, object>>[] navigationProperties)
+        public IList<SystemLanguageCodePoco> GetList(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public SystemLanguageCodeRepository GetSingle(Expression<Func<SystemLanguageCodeRepository, bool>> where, params Expression<Func<SystemLanguageCodeRepository, object>>[] navigationProperties)
+        public SystemLanguageCodePoco GetSingle(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(params SystemLanguageCodeRepository[] items)
+        public void Remove(params SystemLanguageCodePoco[] pocos)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(params SystemLanguageCodeRepository[] items)
+        public void Update(params SystemLanguageCodePoco[] pocos)
         {
             throw new NotImplementedException();
         }
