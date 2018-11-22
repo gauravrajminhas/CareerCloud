@@ -63,7 +63,8 @@ namespace CareerCloud.ADODataAccessLayer
 
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
-                
+                connectionObject.Open();
+
                 SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
                 SqlDataReader reader = commandObject.ExecuteReader();
 
@@ -76,9 +77,9 @@ namespace CareerCloud.ADODataAccessLayer
 
                     //this null value in datatype works only because of decimal? 
                     //Doubt
-                    if (!reader.IsDBNull(3))
+                    if (!reader.IsDBNull(2))
                     {
-                        poco.CurrentSalary = reader.GetDecimal(3);
+                        poco.CurrentSalary = reader.GetDecimal(2);
                     }
                     else
                     {
@@ -86,9 +87,10 @@ namespace CareerCloud.ADODataAccessLayer
                     }
 
 
-                    if (!reader.IsDBNull(4))
+                    if (!reader.IsDBNull(3))
                     {
-                        poco.CurrentRate = reader.GetDecimal(4);
+                        var abc = reader[4];
+                        poco.CurrentRate = reader.GetDecimal(3);
                     }
                     else
                     {
@@ -96,19 +98,19 @@ namespace CareerCloud.ADODataAccessLayer
                     }
 
                     // dont have to handle NULL for reference types !! SWEET ! 
-                    poco.Currency = reader.GetString(5);
-                    poco.Country = reader.GetString(6);
-                    poco.Province = reader.GetString(7);
-                    poco.Street = reader.GetString(8);
-                    poco.City = reader.GetString(9);
-                    poco.PostalCode = reader.GetString(10);
-                    poco.TimeStamp = (byte[]) reader[11];
+                    poco.Currency = reader.GetString(4);
+                    poco.Country = reader.GetString(5);
+                    poco.Province = reader.GetString(6);
+                    poco.Street = reader.GetString(7);
+                    poco.City = reader.GetString(8);
+                    poco.PostalCode = reader.GetString(9);
+                    poco.TimeStamp = (byte[]) reader[10];
 
                     pocos[position] = poco;
                     position++;
                 }
 
-
+                connectionObject.Close();
             }
 
             return pocos.Where( a=>a!=null).ToList();
@@ -150,14 +152,35 @@ namespace CareerCloud.ADODataAccessLayer
         }
 
 
-        // pending 
+        // Completed :  doubt not updating the time stamp !  
         // doubt : will use the commandObject from base class ! 
         public void Update(params ApplicantProfilePoco[] pocos)
         {
-            queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Profiles] set Login = @Login, Current_Salary = @Current_Salary, Current_Rate = @Current_Rate, Currency = @Currency, Country_Code = @Country_Code, State_Province_Code = @State_Province_Code, Street_Address = @Street_Address, City_Town = @City_Town, Zip_Postal_Code = @Zip_Postal_Code, Time_Stamp = @Time_Stamp";
+            queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Profiles] 
+            set Login = @Login, Current_Salary = @Current_Salary, Current_Rate = @Current_Rate, Currency = @Currency, Country_Code = @Country_Code, State_Province_Code = @State_Province_Code, Street_Address = @Street_Address, City_Town = @City_Town, Zip_Postal_Code = @Zip_Postal_Code where Id = @Id";
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
+                
+
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Login",row.Login);
+                    commandObject.Parameters.AddWithValue("@Current_Salary",row.CurrentSalary);
+                    commandObject.Parameters.AddWithValue("@Current_Rate",row.CurrentRate);
+                    commandObject.Parameters.AddWithValue("@Currency",row.Currency);
+                    commandObject.Parameters.AddWithValue("@Country_Code",row.Country);
+                    commandObject.Parameters.AddWithValue("@State_Province_Code",row.Province);
+                    commandObject.Parameters.AddWithValue("@Street_Address",row.Street);
+                    commandObject.Parameters.AddWithValue("@City_Town",row.City);
+                    commandObject.Parameters.AddWithValue("@Zip_Postal_Code",row.PostalCode);
+                    commandObject.Parameters.AddWithValue("@Id",row.Id);
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
 
             }
 

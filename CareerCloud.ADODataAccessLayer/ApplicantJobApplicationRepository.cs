@@ -51,6 +51,7 @@ namespace CareerCloud.ADODataAccessLayer
             {
                 queryString = @"select * from [JOB_PORTAL_DB].[dbo].[Applicant_Job_Applications]";
                 position = 0;
+                connectionObject.Open();
 
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
                 SqlDataReader reader = commandObject.ExecuteReader();
