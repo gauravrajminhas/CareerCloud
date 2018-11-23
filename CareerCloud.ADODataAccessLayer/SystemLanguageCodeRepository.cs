@@ -49,10 +49,35 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
+        //completed 
         public IList<SystemLanguageCodePoco> GetAll(params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
          //   throw new NotImplementedException();
             queryString = @"Select * from [JOB_PORTAL_DB].[dbo].[System_Language_Codes]";
+            position = 0;
+
+            SystemLanguageCodePoco[] pocos = new SystemLanguageCodePoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    SystemLanguageCodePoco poco = new SystemLanguageCodePoco();
+                    poco.LanguageID = reader.GetString(0);
+                    poco.Name = reader.GetName(1);
+                    poco.NativeName = reader.GetString(2);
+                   
+
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
         }
 
         public IList<SystemLanguageCodePoco> GetList(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)

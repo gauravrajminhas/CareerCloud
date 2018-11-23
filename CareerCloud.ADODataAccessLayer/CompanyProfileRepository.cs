@@ -14,6 +14,43 @@ namespace CareerCloud.ADODataAccessLayer
         public IList<CompanyProfilePoco> GetAll(params Expression<Func<CompanyProfilePoco, object>>[] navigationProperties)
         {
             queryString = @"Select * from [JOB_PORTAL_DB].[dbo].[Company_Profiles]";
+            position = 0;
+
+            CompanyProfilePoco[] pocos = new CompanyProfilePoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    CompanyProfilePoco poco = new CompanyProfilePoco();
+                    poco.Id = reader.GetGuid(0);
+                    poco.RegistrationDate = reader.GetDateTime(1);
+                    poco.CompanyWebsite = reader.GetString(2);
+                    poco.ContactPhone = reader.GetString(3);
+                    poco.ContactName = reader.GetString(4);
+                    poco.CompanyLogo = (byte[])reader[5];
+
+                    if (!reader.IsDBNull(6))
+                    {
+                        poco.TimeStamp = (byte[])reader[6];
+                    }
+                    else
+                    {
+                        poco.TimeStamp = null;
+                    }
+                    
+
+
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
         }
 
         public IList<CompanyProfilePoco> GetList(Expression<Func<CompanyProfilePoco, bool>> @where, params Expression<Func<CompanyProfilePoco, object>>[] navigationProperties)

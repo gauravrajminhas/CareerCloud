@@ -12,10 +12,34 @@ namespace CareerCloud.ADODataAccessLayer
 
     public class SecurityRoleRepository : BaseADO, IDataRepository<SecurityRolePoco>
     {
+        //completed 
         public IList<SecurityRolePoco> GetAll(params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
         {
             //throw new NotImplementedException();
             queryString = @"SELECT * FROM [JOB_PORTAL_DB].[dbo].[Security_Roles]";
+            position = 0;
+
+            SecurityRolePoco[] pocos = new SecurityRolePoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    SecurityRolePoco poco = new SecurityRolePoco();
+                    poco.Id = reader.GetGuid(0);
+                    poco.Role = reader.GetString(1);
+                    poco.IsInactive = reader.GetBoolean(2);
+                    
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
         }
 
         public IList<SecurityRolePoco> GetList(Expression<Func<SecurityRolePoco, bool>> @where, params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
@@ -23,6 +47,7 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
+        //completed 
         public SecurityRolePoco GetSingle(Expression<Func<SecurityRolePoco, bool>> @where, params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
         {
             // throw new NotImplementedException();
@@ -30,6 +55,8 @@ namespace CareerCloud.ADODataAccessLayer
             return pocos.Where(where).FirstOrDefault();
         }
 
+
+        //completed 
         public void Add(params SecurityRolePoco[] pocos)
         {
             //throw new NotImplementedException();
@@ -59,6 +86,7 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
+        //completed 
         public void Update(params SecurityRolePoco[] pocos)
         {
             //throw new NotImplementedException();
@@ -84,6 +112,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         }
 
+        //completed 
         public void Remove(params SecurityRolePoco[] pocos)
         {
             //throw new NotImplementedException();

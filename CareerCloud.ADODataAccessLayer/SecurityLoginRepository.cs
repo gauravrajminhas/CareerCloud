@@ -14,6 +14,59 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException()
             queryString = @"Select * from [JOB_PORTAL_DB].[dbo].[Security_Logins]";
+            position = 0;
+
+            SecurityLoginPoco[] pocos = new SecurityLoginPoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    SecurityLoginPoco poco = new SecurityLoginPoco();
+                    poco.Id = reader.GetGuid(0);
+                    poco.Login = reader.GetString(1);
+                    poco.Password = reader.GetString(2);
+                    poco.Created = reader.GetDateTime(3);
+
+                    if (!reader.IsDBNull(4))
+                    {
+                        poco.PasswordUpdate = reader.GetDateTime(4);
+                    }
+                    else
+                    {
+                        poco.PasswordUpdate = null;
+                    }
+
+                    if (!reader.IsDBNull(5))
+                    {
+                        poco.AgreementAccepted = reader.GetDateTime(5);
+                    }
+                    else
+                    {
+                        poco.AgreementAccepted = null;
+                    }
+
+                    poco.IsLocked = reader.GetBoolean(6);
+                    poco.IsInactive = reader.GetBoolean(7);
+                    poco.EmailAddress = reader.GetString(8);
+                    poco.PhoneNumber = reader.GetString(9);
+                    poco.FullName = reader.GetString(10);
+                    poco.ForceChangePassword = reader.GetBoolean(11);
+                    poco.PrefferredLanguage = reader.GetString(12);
+                    poco.TimeStamp = (byte[])reader[13];
+
+
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
+
         }
 
         public IList<SecurityLoginPoco> GetList(Expression<Func<SecurityLoginPoco, bool>> @where, params Expression<Func<SecurityLoginPoco, object>>[] navigationProperties)

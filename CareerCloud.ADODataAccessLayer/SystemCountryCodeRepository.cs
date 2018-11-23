@@ -11,6 +11,7 @@ namespace CareerCloud.ADODataAccessLayer
     //[JOB_PORTAL_DB].[dbo].[System_Country_Codes]
 
 
+    //completed 
     public class SystemCountryCodeRepository : BaseADO, IDataRepository<SystemCountryCodePoco>
     {
         public void Add(params SystemCountryCodePoco[] pocos)
@@ -44,10 +45,34 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
+        //completed 
         public IList<SystemCountryCodePoco> GetAll(params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
         {
             //throw new NotImplementedException();
             queryString = @"select * from [JOB_PORTAL_DB].[dbo].[System_Country_Codes]";
+
+            position = 0;
+
+            SystemCountryCodePoco[] pocos = new SystemCountryCodePoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    SystemCountryCodePoco poco = new SystemCountryCodePoco();
+                    poco.Code = reader.GetString(0);
+                    poco.Name = reader.GetString(1);
+
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
         }
 
         public IList<SystemCountryCodePoco> GetList(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
@@ -83,6 +108,8 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
+
+        //completed 
         public void Update(params SystemCountryCodePoco[] pocos)
         {
             //throw new NotImplementedException();

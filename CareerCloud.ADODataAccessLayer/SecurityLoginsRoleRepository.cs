@@ -16,6 +16,38 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();\
             queryString = @"SELECT * FROM [JOB_PORTAL_DB].[dbo].[Security_Logins_Roles]";
+            position = 0;
+
+            SecurityLoginsRolePoco[] pocos = new SecurityLoginsRolePoco[arraySize];
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                SqlDataReader reader = commandObject.ExecuteReader();
+
+                while (reader.HasRows)
+                {
+                    SecurityLoginsRolePoco poco = new SecurityLoginsRolePoco();
+                    poco.Id = reader.GetGuid(0);
+                    poco.Login = reader.GetGuid(1);
+                    poco.Role = reader.GetGuid(2);
+
+                    if (!reader.IsDBNull(3))
+                    {
+                        poco.TimeStamp = (byte[]) reader[3];
+                    }
+                    else
+                    {
+                        poco.TimeStamp = null;
+                    }
+
+                    pocos[position] = poco;
+                    position++;
+                }
+
+
+            }
+
+            return pocos.Where(a => a != null).ToList();
         }
 
         public IList<SecurityLoginsRolePoco> GetList(Expression<Func<SecurityLoginsRolePoco, bool>> @where, params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
