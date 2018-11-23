@@ -14,7 +14,8 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SecurityLoginsRolePoco> GetAll(params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();\
+            queryString = @"SELECT * FROM [JOB_PORTAL_DB].[dbo].[Security_Logins_Roles]";
         }
 
         public IList<SecurityLoginsRolePoco> GetList(Expression<Func<SecurityLoginsRolePoco, bool>> @where, params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
@@ -31,12 +32,57 @@ namespace CareerCloud.ADODataAccessLayer
 
         public void Add(params SecurityLoginsRolePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Security_Logins_Roles]
+                                       ([Id]
+                                       ,[Login]
+                                       ,[Role])
+                                 VALUES
+                                       (@Id
+                                       ,@Login
+                                       ,@Role)";
+
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@Login", row.Login);
+                    commandObject.Parameters.AddWithValue("@Role", row.Role);
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
         }
 
         public void Update(params SecurityLoginsRolePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"UPDATE [JOB_PORTAL_DB].[dbo].[Security_Logins_Roles]
+                               SET [Login] = @Login
+                                  ,[Role] = @Role
+                             WHERE [Id] = @Id";
+
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@Login", row.Login);
+                    commandObject.Parameters.AddWithValue("@Role", row.Role);
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
+
         }
 
         public void Remove(params SecurityLoginsRolePoco[] pocos)

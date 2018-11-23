@@ -15,7 +15,28 @@ namespace CareerCloud.ADODataAccessLayer
     {
         public void Add(params SystemCountryCodePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[System_Country_Codes]
+                                       ([Code]
+                                       ,[Name])
+                                 VALUES
+                                       (@Code
+                                       ,@Name)";
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Code", row.Code);
+                    commandObject.Parameters.AddWithValue("@Name", row.Name);
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
+
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
@@ -25,7 +46,8 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SystemCountryCodePoco> GetAll(params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"select * from [JOB_PORTAL_DB].[dbo].[System_Country_Codes]";
         }
 
         public IList<SystemCountryCodePoco> GetList(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
@@ -33,6 +55,7 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
+        //completed 
         public SystemCountryCodePoco GetSingle(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
         {
             //throw new NotImplementedException();
@@ -40,10 +63,12 @@ namespace CareerCloud.ADODataAccessLayer
             return pocos.Where(where).FirstOrDefault();
         }
 
+        //completed 
         public void Remove(params SystemCountryCodePoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = @"delete from [JOB_PORTAL_DB].[dbo].[System_Country_Codes] where Id = @Id";
+            queryString = @"DELETE FROM [JOB_PORTAL_DB].[dbo].[System_Country_Codes]
+                                    WHERE [Code] = @Code";
 
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
@@ -51,7 +76,7 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (var row in pocos)
                 {
                     connectionObject.Open();
-                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@Code", row.Code);
                     commandObject.ExecuteNonQuery();
                     connectionObject.Close();
                 }
@@ -60,7 +85,25 @@ namespace CareerCloud.ADODataAccessLayer
 
         public void Update(params SystemCountryCodePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"UPDATE [JOB_PORTAL_DB].[dbo].[System_Country_Codes]
+                               SET [Name] = @Name
+                             WHERE [Code] = @Code";
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Code", row.Code);
+                    commandObject.Parameters.AddWithValue("@Name", row.Name);
+
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
         }
     }
 }

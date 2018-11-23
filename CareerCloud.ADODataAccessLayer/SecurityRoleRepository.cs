@@ -14,7 +14,8 @@ namespace CareerCloud.ADODataAccessLayer
     {
         public IList<SecurityRolePoco> GetAll(params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"SELECT * FROM [JOB_PORTAL_DB].[dbo].[Security_Roles]";
         }
 
         public IList<SecurityRolePoco> GetList(Expression<Func<SecurityRolePoco, bool>> @where, params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
@@ -31,12 +32,56 @@ namespace CareerCloud.ADODataAccessLayer
 
         public void Add(params SecurityRolePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Security_Roles]
+                                       ([Id]
+                                       ,[Role]
+                                       ,[Is_Inactive])
+                                 VALUES
+                                       (@Id
+                                       ,@Role
+                                       ,@Is_Inactive)";
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@Role", row.Role);
+                    commandObject.Parameters.AddWithValue("@Is_Inactive", row.IsInactive);
+
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
         }
 
         public void Update(params SecurityRolePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"UPDATE [JOB_PORTAL_DB].[dbo].[Security_Roles]
+                               SET [Role] = @Role
+                                  ,[Is_Inactive] = @Is_Inactive
+                             WHERE [Id] = @Id";
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@Role", row.Role);
+                    commandObject.Parameters.AddWithValue("@Is_Inactive", row.IsInactive);
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
+
         }
 
         public void Remove(params SecurityRolePoco[] pocos)

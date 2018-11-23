@@ -13,9 +13,35 @@ namespace CareerCloud.ADODataAccessLayer
     {
         //[JOB_PORTAL_DB].[dbo].[System_Language_Codes]
 
+        //completed 
         public void Add(params SystemLanguageCodePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[System_Language_Codes]
+                                       ([LanguageID]
+                                       ,[Name]
+                                       ,[Native_Name])
+                                 VALUES
+                                       (@LanguageID
+                                       ,@Name
+                                       ,@Native_Name)";
+
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Name", row.Name);
+                    commandObject.Parameters.AddWithValue("@Native_Name", row.NativeName);
+                    commandObject.Parameters.AddWithValue("@LanguageID", row.LanguageID);
+
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
@@ -25,7 +51,8 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SystemLanguageCodePoco> GetAll(params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
-            throw new NotImplementedException();
+         //   throw new NotImplementedException();
+            queryString = @"Select * from [JOB_PORTAL_DB].[dbo].[System_Language_Codes]";
         }
 
         public IList<SystemLanguageCodePoco> GetList(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
@@ -33,6 +60,7 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
+        //comleted 
         public SystemLanguageCodePoco GetSingle(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             // throw new NotImplementedException();
@@ -40,10 +68,11 @@ namespace CareerCloud.ADODataAccessLayer
             return pocos.Where(where).FirstOrDefault();
         }
 
+        //completed 
         public void Remove(params SystemLanguageCodePoco[] pocos)
         {
             // throw new NotImplementedException();
-            queryString = @"delete from [JOB_PORTAL_DB].[dbo].[System_Language_Codes] where Id = @Id";
+            queryString = @"delete from [JOB_PORTAL_DB].[dbo].[System_Language_Codes] where LanguageID = @LanguageID";
 
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
@@ -51,16 +80,43 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (var row in pocos)
                 {
                     connectionObject.Open();
-                    commandObject.Parameters.AddWithValue("@Id", row.Id);
+                    commandObject.Parameters.AddWithValue("@LanguageID", row.LanguageID);
                     commandObject.ExecuteNonQuery();
                     connectionObject.Close();
                 }
             }
         }
 
+        //completed
         public void Update(params SystemLanguageCodePoco[] pocos)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            queryString = @"UPDATE [JOB_PORTAL_DB].[dbo].[System_Language_Codes]
+                               SET [Name] = @Name
+                                  ,[Native_Name] = @Native_Name
+                            WHERE [LanguageID] = @LanguageID";
+
+            using (connectionObject)
+            {
+                SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                foreach (var row in pocos)
+                {
+                    commandObject.Parameters.AddWithValue("@Name", row.Name);
+                    commandObject.Parameters.AddWithValue("@Native_Name", row.NativeName);
+                   commandObject.Parameters.AddWithValue("@LanguageID", row.LanguageID);
+                   
+
+                    connectionObject.Open();
+                    commandObject.ExecuteNonQuery();
+                    connectionObject.Close();
+
+                }
+            }
+
+
+
+
+
         }
     }
 }
