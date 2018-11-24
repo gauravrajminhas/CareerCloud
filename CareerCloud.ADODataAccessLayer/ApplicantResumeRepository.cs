@@ -53,7 +53,7 @@ namespace CareerCloud.ADODataAccessLayer
             ApplicantResumePoco[] pocos = new ApplicantResumePoco[arraySize];
             
             position = 0;
-            using (connectionObject)
+            using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
                 SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
                 

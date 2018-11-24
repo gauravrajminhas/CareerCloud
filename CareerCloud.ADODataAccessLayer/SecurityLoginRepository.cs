@@ -20,9 +20,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     SecurityLoginPoco poco = new SecurityLoginPoco();
                     poco.Id = reader.GetGuid(0);
@@ -51,18 +52,34 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.IsLocked = reader.GetBoolean(6);
                     poco.IsInactive = reader.GetBoolean(7);
                     poco.EmailAddress = reader.GetString(8);
-                    poco.PhoneNumber = reader.GetString(9);
+                    if (!reader.IsDBNull(9))
+                    {
+                        poco.PhoneNumber = reader.GetString(9);
+                    }
+                    else
+                    {
+                        poco.PhoneNumber = null;
+                    }
+
                     poco.FullName = reader.GetString(10);
                     poco.ForceChangePassword = reader.GetBoolean(11);
-                    poco.PrefferredLanguage = reader.GetString(12);
-                    poco.TimeStamp = (byte[])reader[13];
+                    if (!reader.IsDBNull(12))
+                    {   
+                        poco.PrefferredLanguage = reader.GetString(12);
+                    }
+                    else
+                    {
+                        poco.PrefferredLanguage = null;
+                    }
+
+                poco.TimeStamp = (byte[])reader[13];
 
 
                     pocos[position] = poco;
                     position++;
                 }
 
-
+                connectionObject.Close();
             }
 
             return pocos.Where(a => a != null).ToList();
@@ -85,6 +102,19 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Security_Logins]
+                                        ([Id]
+                                       ,[Login]
+                                       ,[Password]
+                                       ,[Created_Date]
+                                       ,[Password_Update_Date]
+                                       ,[Agreement_Accepted_Date]
+                                       ,[Is_Locked]
+                                       ,[Is_Inactive]
+                                       ,[Email_Address]
+                                       ,[Phone_Number]
+                                       ,[Full_Name]
+                                       ,[Force_Change_Password]
+                                       ,[Prefferred_Language])
                                  VALUES
                                        (@Id
                                        ,@Login

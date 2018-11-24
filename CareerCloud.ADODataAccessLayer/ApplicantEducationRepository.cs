@@ -101,7 +101,7 @@ namespace CareerCloud.ADODataAccessLayer
                     foreach (var record in pocos)
                     {
                         queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Educations]" +
-                        "set Applicant = @Applicant, Major = @Major , Certificate_Diploma = @Certificate_Diploma, Start_Date= @Start_Date, Completion_Date =@Completion_Date, Completion_Percent = @Completion_Percent where Id = @Id;";
+                        "set Applicant = @Applicant, Major = @Major , Certificate_Diploma = @Certificate_Diploma, Start_Date= @Start_Date, Completion_Date =@Completion_Date, Completion_Percent = @Completion_Percent, Time_Stamp = @Time_Stamp  where Id = @Id;";
                         SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
                         commandObject.Parameters.AddWithValue("@Id", record.Id);
                         commandObject.Parameters.AddWithValue("@Applicant", record.Applicant);
@@ -110,6 +110,7 @@ namespace CareerCloud.ADODataAccessLayer
                         commandObject.Parameters.AddWithValue("@Start_Date", record.StartDate);
                         commandObject.Parameters.AddWithValue("@Completion_Date", record.CompletionDate);
                         commandObject.Parameters.AddWithValue("@Completion_Percent", record.CompletionPercent);
+                        commandObject.Parameters.AddWithValue("@Time_Stamp", record.TimeStamp);
 
                         connectionObject.Open();
                         rowsAffected = commandObject.ExecuteNonQuery();
@@ -143,8 +144,8 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (var record in pocos)
                 {
 
-                    queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Educations] ( Id, Applicant, Major, Certificate_Diploma, Start_Date, Completion_Date, Completion_Percent, Time_Stamp)" +
-                                  "values(@Id, @Applicant, @Major, @Certificate_Diploma, @Start_Date, @Completion_Date, @Completion_Percent, @Time_Stamp)";
+                    queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Educations] ( Id, Applicant, Major, Certificate_Diploma, Start_Date, Completion_Date, Completion_Percent)" +
+                                  "values(@Id, @Applicant, @Major, @Certificate_Diploma, @Start_Date, @Completion_Date, @Completion_Percent)";
 
                     //bug parametrize this query
                     //Doubt can we add parameters in the command object after we pass the query string ?
@@ -156,7 +157,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Start_Date", record.StartDate);
                     commandObject.Parameters.AddWithValue("@Completion_Date", record.CompletionDate);
                     commandObject.Parameters.AddWithValue("@Completion_Percent", record.CompletionPercent);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", record.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", record.TimeStamp);
 
                     connObject.Open();
                     rowsAffected = commandObject.ExecuteNonQuery();

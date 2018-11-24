@@ -28,7 +28,7 @@ namespace CareerCloud.ADODataAccessLayer
                 connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyDescriptionPoco poco = new CompanyDescriptionPoco();
                     poco.Id = reader.GetGuid(0);
@@ -64,8 +64,19 @@ namespace CareerCloud.ADODataAccessLayer
         public void Add(params CompanyDescriptionPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Company_Descriptions]
-                            values (@Id,@Company,@LanguageID, @Company_Name, @Company_Description,Time_Stamp)";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Company_Descriptions]
+                                       ([Id]
+                                       ,[Company]
+                                       ,[LanguageID]
+                                       ,[Company_Name]
+                                       ,[Company_Description])
+                                 VALUES
+                                       (@Id
+                                       ,@Company
+                                       ,@LanguageID
+                                       ,@Company_Name
+                                       ,@Company_Description)";
+
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
@@ -76,7 +87,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@LanguageID", row.LanguageId);
                     commandObject.Parameters.AddWithValue("@Company_Name", row.CompanyName);
                     commandObject.Parameters.AddWithValue("@Company_Description", row.CompanyDescription);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                   // commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -93,7 +104,7 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             queryString =
-                @"update [JOB_PORTAL_DB].[dbo].[Company_Descriptions] set Company=@Company, LanguageID=@LanguageID, Company_Name=@Company_Name, Company_Description=@Company_Description,Time_Stamp=@Time_Stamp
+                @"update [JOB_PORTAL_DB].[dbo].[Company_Descriptions] set Company=@Company, LanguageID=@LanguageID, Company_Name=@Company_Name, Company_Description=@Company_Description
                             where Id=@Id ";
 
             using (connectionObject)
@@ -106,7 +117,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@LanguageID", row.LanguageId);
                     commandObject.Parameters.AddWithValue("@Company_Name", row.CompanyName);
                     commandObject.Parameters.AddWithValue("@Company_Description", row.CompanyDescription);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();

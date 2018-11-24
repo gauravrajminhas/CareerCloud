@@ -60,9 +60,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     SystemLanguageCodePoco poco = new SystemLanguageCodePoco();
                     poco.LanguageID = reader.GetString(0);
@@ -74,7 +75,7 @@ namespace CareerCloud.ADODataAccessLayer
                     position++;
                 }
 
-
+                connectionObject.Close();
             }
 
             return pocos.Where(a => a != null).ToList();

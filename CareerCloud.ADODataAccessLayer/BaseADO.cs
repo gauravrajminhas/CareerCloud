@@ -16,7 +16,7 @@ namespace CareerCloud.ADODataAccessLayer
         protected SqlConnection connectionObject = new SqlConnection(connectionString);
         protected String queryString;
 
-        protected const int arraySize = 2000;
+        protected const int arraySize = 5001;
         protected int position = 0, rowsAffected =0;
         
     }

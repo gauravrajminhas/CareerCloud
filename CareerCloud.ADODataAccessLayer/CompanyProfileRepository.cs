@@ -20,17 +20,40 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyProfilePoco poco = new CompanyProfilePoco();
                     poco.Id = reader.GetGuid(0);
                     poco.RegistrationDate = reader.GetDateTime(1);
-                    poco.CompanyWebsite = reader.GetString(2);
+                    if (!reader.IsDBNull(2))
+                    {
+                        poco.CompanyWebsite = reader.GetString(2);
+                    }
+                    else
+                    {
+                        poco.CompanyWebsite = null;
+                    }
+                    
                     poco.ContactPhone = reader.GetString(3);
-                    poco.ContactName = reader.GetString(4);
-                    poco.CompanyLogo = (byte[])reader[5];
+                    if (!reader.IsDBNull(4))
+                    {
+                        poco.ContactName = reader.GetString(4);
+                    }
+                    else
+                    {
+                        poco.ContactName = null;
+                    }
+                    if (!reader.IsDBNull(5))
+                    {
+                        poco.CompanyLogo = (byte[])reader[5];
+                    }
+                    else
+                    {
+                        poco.CompanyLogo = null;
+                    }
 
                     if (!reader.IsDBNull(6))
                     {
@@ -46,7 +69,7 @@ namespace CareerCloud.ADODataAccessLayer
                     pocos[position] = poco;
                     position++;
                 }
-
+                connectionObject.Close();
 
             }
 

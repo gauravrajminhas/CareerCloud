@@ -28,7 +28,7 @@ namespace CareerCloud.ADODataAccessLayer
                 connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyJobDescriptionPoco poco = new CompanyJobDescriptionPoco();
                     poco.Id = reader.GetGuid(0);
@@ -69,7 +69,17 @@ namespace CareerCloud.ADODataAccessLayer
         public void Add(params CompanyJobDescriptionPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions] values (@Id, @Job, @Job_Name, @Job_Descriptions)";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions]
+                                       ([Id]
+                                       ,[Job]
+                                       ,[Job_Name]
+                                       ,[Job_Descriptions])
+                                 VALUES
+                                       (@Id
+                                       ,@Job
+                                       ,@Job_Name
+                                       ,@Job_Descriptions)";
+
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
@@ -79,7 +89,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Job", row.Job);
                     commandObject.Parameters.AddWithValue("@Job_Name", row.JobName);
                     commandObject.Parameters.AddWithValue("@Job_Descriptions", row.JobDescriptions);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -95,7 +105,7 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             queryString =
-                @"update [JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions] set Job=@Job, Job_Name=@Job_Name, Job_Descriptions=@Job_Descriptions, Time_Stamp=@Time_Stamp where Id =@Id";
+                @"update [JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions] set Job=@Job, Job_Name=@Job_Name, Job_Descriptions=@Job_Descriptions where Id =@Id";
 
             using (connectionObject)
             {
@@ -106,7 +116,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Job", row.Job);
                     commandObject.Parameters.AddWithValue("@Job_Name", row.JobName);
                     commandObject.Parameters.AddWithValue("@Job_Descriptions", row.JobDescriptions);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();

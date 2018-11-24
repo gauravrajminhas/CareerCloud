@@ -21,21 +21,22 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyJobEducationPoco poco = new CompanyJobEducationPoco();
                     poco.Id = reader.GetGuid(0);
                     poco.Job = reader.GetGuid(1);
                     poco.Major = reader.GetString(2);
                     poco.Importance = reader.GetInt16(3);
-                    poco.TimeStamp = (byte[])reader[7];
+                    poco.TimeStamp = (byte[])reader[4];
                     
                     pocos[position] = poco;
                     position++;
                 }
-
+                connectionObject.Close();
             }
 
             return pocos.Where(a => a != null).ToList();

@@ -19,12 +19,30 @@ namespace CareerCloud.ADODataAccessLayer
         public void Add(params ApplicantSkillPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Skills] values (@Applicant, @Skill, @Skill_Level, @Start_Month, @Start_Year, @End_Month, @End_Year, @Time_Stamp) where Id = @Id";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Applicant_Skills]
+                                       ([Id]
+                                       ,[Applicant]
+                                       ,[Skill]
+                                       ,[Skill_Level]
+                                       ,[Start_Month]
+                                       ,[Start_Year]
+                                       ,[End_Month]
+                                       ,[End_Year])
+                                 VALUES
+                                       (@Id
+                                       ,@Applicant
+                                       ,@Skill
+                                       ,@Skill_Level
+                                       ,@Start_Month
+                                       ,@Start_Year
+                                       ,@End_Month
+                                       ,@End_Year)";
             using (connectionObject)
             {
                 SqlCommand commandObject = new  SqlCommand(queryString,connectionObject);
                 foreach (var row in pocos)
                 {
+                    commandObject.Parameters.AddWithValue("@Id", row.Id);
                     commandObject.Parameters.AddWithValue("@Applicant",row.Applicant);
                     commandObject.Parameters.AddWithValue("@Skill",row.Skill);
                     commandObject.Parameters.AddWithValue("@Skill_Level",row.SkillLevel);
@@ -32,7 +50,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Start_Year",row.StartYear);
                     commandObject.Parameters.AddWithValue("@End_Month",row.EndMonth);
                     commandObject.Parameters.AddWithValue("@End_Year",row.EndYear);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -48,7 +66,7 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Skills] 
-                            set  Applicant = @Applicant, Skill = @Skill,  Skill_Level= @Skill_Level, Start_Month = @Start_Month, Start_Year= @Start_Year, End_Month = @End_Month, End_Year = @End_Year, Time_Stamp = @Time_Stamp 
+                            set  Applicant = @Applicant, Skill = @Skill,  Skill_Level= @Skill_Level, Start_Month = @Start_Month, Start_Year= @Start_Year, End_Month = @End_Month, End_Year = @End_Year 
                             where Id =@Id";
 
             using (connectionObject)
@@ -61,11 +79,10 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Skill", row.Skill);
                     commandObject.Parameters.AddWithValue("@Skill_Level", row.SkillLevel);
                     commandObject.Parameters.AddWithValue("@Start_Month", row.StartMonth);
-                    commandObject.Parameters.AddWithValue("@Start_Year", row.StartMonth);
                     commandObject.Parameters.AddWithValue("@Start_Year", row.StartYear);
                     commandObject.Parameters.AddWithValue("@End_Month", row.EndMonth);
                     commandObject.Parameters.AddWithValue("@End_Year", row.EndYear);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -100,7 +117,7 @@ namespace CareerCloud.ADODataAccessLayer
                 connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     ApplicantSkillPoco poco = new ApplicantSkillPoco();
                     poco.Id = reader.GetGuid(0);

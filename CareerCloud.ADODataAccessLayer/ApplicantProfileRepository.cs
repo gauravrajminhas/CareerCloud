@@ -17,8 +17,28 @@ namespace CareerCloud.ADODataAccessLayer
         // Completed: doubt
         public void Add(params ApplicantProfilePoco[] pocos)
         {
-            queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Profiles] 
-                          values (@Id, @Login,@Current_Salary, @Current_Rate, @Currency, @Country_Code, @State_Province_Code, @Street_Address, @City_Town, @Zip_Postal_Code, @Time_Stamp)";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Applicant_Profiles]
+                                       ([Id]
+                                       ,[Login]
+                                       ,[Current_Salary]
+                                       ,[Current_Rate]
+                                       ,[Currency]
+                                       ,[Country_Code]
+                                       ,[State_Province_Code]
+                                       ,[Street_Address]
+                                       ,[City_Town]
+                                       ,[Zip_Postal_Code])
+                                 VALUES
+                                       (@Id
+                                       ,@Login
+                                       ,@Current_Salary
+                                       ,@Current_Rate
+                                       ,@Currency
+                                       ,@Country_Code
+                                       ,@State_Province_Code
+                                       ,@Street_Address
+                                       ,@City_Town
+                                       ,@Zip_Postal_Code)";
 
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
@@ -35,7 +55,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Street_Address",row.Street);
                     commandObject.Parameters.AddWithValue("@City_Town",row.City);
                     commandObject.Parameters.AddWithValue("@Zip_Postal_Code",row.PostalCode);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp",row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp",row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();

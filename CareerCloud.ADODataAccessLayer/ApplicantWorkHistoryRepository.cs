@@ -29,7 +29,7 @@ namespace CareerCloud.ADODataAccessLayer
                 connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     ApplicantWorkHistoryPoco poco = new ApplicantWorkHistoryPoco();
                     poco.Id = reader.GetGuid(0);
@@ -71,8 +71,30 @@ namespace CareerCloud.ADODataAccessLayer
         public void Add(params ApplicantWorkHistoryPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Work_History] 
-                            values (@Id, @Applicant, @Company_Name,@Country_Code, @Location ,@Job_Title,@Job_Description, @Start_Month,@Start_Year,@End_Month,@End_Year, @Time_Stamp)";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Applicant_Work_History]
+                                       ([Id]
+                                       ,[Applicant]
+                                       ,[Company_Name]
+                                       ,[Country_Code]
+                                       ,[Location]
+                                       ,[Job_Title]
+                                       ,[Job_Description]
+                                       ,[Start_Month]
+                                       ,[Start_Year]
+                                       ,[End_Month]
+                                       ,[End_Year])
+                                 VALUES
+                                       (@Id
+                                       ,@Applicant
+                                       ,@Company_Name
+                                       ,@Country_Code
+                                       ,@Location
+                                       ,@Job_Title
+                                       ,@Job_Description
+                                       ,@Start_Month
+                                       ,@Start_Year
+                                       ,@End_Month
+                                       ,@End_Year)";
 
 
             using (connectionObject)
@@ -91,7 +113,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Start_Year", row.StartYear);
                     commandObject.Parameters.AddWithValue("@End_Month", row.EndMonth);
                     commandObject.Parameters.AddWithValue("@End_Year", row.EndYear);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -108,7 +130,7 @@ namespace CareerCloud.ADODataAccessLayer
         {
             //throw new NotImplementedException();
             queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Work_History] 
-                            set  Applicant=@Applicant, Company_Name=@Company_Name, Country_Code=@Country_Code, Location=@Location , Job_Title=@Job_Title,Job_Description=@Job_Description,Start_Month=@Start_Month, Start_Year=@Start_Year,End_Month=@End_Month,End_Year=@End_Year, Time_Stamp=@Time_Stamp 
+                            set  Applicant=@Applicant, Company_Name=@Company_Name, Country_Code=@Country_Code, Location=@Location , Job_Title=@Job_Title,Job_Description=@Job_Description,Start_Month=@Start_Month, Start_Year=@Start_Year,End_Month=@End_Month,End_Year=@End_Year 
                             where Id=@Id";
 
             using (connectionObject)
@@ -127,7 +149,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Start_Year", row.StartYear);
                     commandObject.Parameters.AddWithValue("@End_Month", row.EndMonth);
                     commandObject.Parameters.AddWithValue("@End_Year", row.EndYear);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -144,7 +166,7 @@ namespace CareerCloud.ADODataAccessLayer
         public void Remove(params ApplicantWorkHistoryPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString = "delete * from [JOB_PORTAL_DB].[dbo].[Applicant_Work_History]";
+            queryString = "delete from [JOB_PORTAL_DB].[dbo].[Applicant_Work_History] where Id = @Id";
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);

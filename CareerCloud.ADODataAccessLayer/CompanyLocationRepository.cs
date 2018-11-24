@@ -20,9 +20,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyLocationPoco poco = new CompanyLocationPoco();
                     poco.Id = reader.GetGuid(0);
@@ -30,15 +31,29 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.CountryCode = reader.GetString(2);
                     poco.Province = reader.GetString(3);
                     poco.Street = reader.GetString(4);
-                    poco.City = reader.GetString(5);
-                    poco.PostalCode = reader.GetString(6);
+                    if ((!reader.IsDBNull(5)))
+                    {
+                        poco.City = reader.GetString(5);
+                    }
+                    else
+                    {
+                        poco.City = null;
+                    }
+                    if (!reader.IsDBNull(6))
+                    {
+                        poco.PostalCode = reader.GetString(6);
+                    }
+                    else
+                    {
+                        poco.PostalCode = null;
+                    }
                     poco.TimeStamp = (byte[]) reader[7];
 
 
                     pocos[position] = poco;
                     position++;
                 }
-
+                connectionObject.Close();
 
             }
 
@@ -62,8 +77,22 @@ namespace CareerCloud.ADODataAccessLayer
         public void Add(params CompanyLocationPoco[] pocos)
         {
             //throw new NotImplementedException();
-            queryString =@"INSERT INTO [JOB_PORTAL_DB].[dbo].[Company_Locations] 
-            VALUES (@Id ,@Company ,@Country_Code, @State_Province_Code, @Street_Address ,@City_Town ,@Zip_Postal_Code))";
+            queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Company_Locations]
+                                       ([Id]
+                                       ,[Company]
+                                       ,[Country_Code]
+                                       ,[State_Province_Code]
+                                       ,[Street_Address]
+                                       ,[City_Town]
+                                       ,[Zip_Postal_Code])
+                                 VALUES
+                                       (@Id
+                                       ,@Company
+                                       ,@Country_Code
+                                       ,@State_Province_Code
+                                       ,@Street_Address
+                                       ,@City_Town
+                                       ,@Zip_Postal_Code)";
 
             using (connectionObject)
             {
@@ -77,7 +106,9 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Street_Address",row.Street);
                     commandObject.Parameters.AddWithValue("@City_Town",row.City);
                     commandObject.Parameters.AddWithValue("@Zip_Postal_Code",row.PostalCode);
-                
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", row.TimeStamp);
+
+
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
                     connectionObject.Close();

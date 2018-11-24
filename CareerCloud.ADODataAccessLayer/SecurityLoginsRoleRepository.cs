@@ -22,9 +22,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     SecurityLoginsRolePoco poco = new SecurityLoginsRolePoco();
                     poco.Id = reader.GetGuid(0);
@@ -43,7 +44,7 @@ namespace CareerCloud.ADODataAccessLayer
                     pocos[position] = poco;
                     position++;
                 }
-
+                connectionObject.Close();
 
             }
 

@@ -20,9 +20,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyJobPoco poco = new CompanyJobPoco();
                     poco.Id = reader.GetGuid(0);
@@ -31,9 +32,9 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.IsInactive = reader.GetBoolean(3);
                     poco.IsCompanyHidden = reader.GetBoolean(4);
 
-                    if (!reader.IsDBNull(7))
+                    if (!reader.IsDBNull(5))
                     {
-                        poco.TimeStamp = (byte[]) reader[7];
+                        poco.TimeStamp = (byte[]) reader[5];
                     }
                     else
                     {
@@ -44,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
                     position++;
                 }
 
-
+                connectionObject.Close();
             }
 
             return pocos.Where(a => a != null).ToList();

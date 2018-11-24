@@ -20,9 +20,10 @@ namespace CareerCloud.ADODataAccessLayer
             using (connectionObject)
             {
                 SqlCommand commandObject = new SqlCommand(queryString, connectionObject);
+                connectionObject.Open();
                 SqlDataReader reader = commandObject.ExecuteReader();
 
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     CompanyJobSkillPoco poco = new CompanyJobSkillPoco();
                     poco.Id = reader.GetGuid(0);
@@ -30,13 +31,13 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Skill = reader.GetString(2);
                     poco.SkillLevel = reader.GetString(3);
                     poco.Importance = reader.GetInt32(4);
-                    poco.TimeStamp = (byte[])reader[7];
+                    poco.TimeStamp = (byte[])reader[5];
 
 
                     pocos[position] = poco;
                     position++;
                 }
-
+                connectionObject.Close();
 
             }
 

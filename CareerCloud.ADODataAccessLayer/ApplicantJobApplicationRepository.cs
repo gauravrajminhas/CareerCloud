@@ -18,8 +18,16 @@ namespace CareerCloud.ADODataAccessLayer
             //throw new NotImplementedException();
             using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
-                queryString = @"insert into [JOB_PORTAL_DB].[dbo].[Applicant_Job_Applications]" +
-                              @"values (@Id, @Applicant, @Job, @Application_Date, @Time_Stamp)";
+                queryString = @"INSERT INTO [JOB_PORTAL_DB].[dbo].[Applicant_Job_Applications]
+                                           ([Id]
+                                           ,[Applicant]
+                                           ,[Job]
+                                           ,[Application_Date])
+                                     VALUES
+                                           (@Id
+                                           ,@Applicant
+                                           ,@Job
+                                           ,@Application_Date)";
 
                 foreach (var rows  in pocos)
                 {
@@ -28,7 +36,7 @@ namespace CareerCloud.ADODataAccessLayer
                     commandObject.Parameters.AddWithValue("@Applicant",rows.Applicant);
                     commandObject.Parameters.AddWithValue("@Job",rows.Job);
                     commandObject.Parameters.AddWithValue("@Application_Date",rows.ApplicationDate);
-                    commandObject.Parameters.AddWithValue("@Time_Stamp", rows.TimeStamp);
+                    //commandObject.Parameters.AddWithValue("@Time_Stamp", rows.TimeStamp);
 
                     connectionObject.Open();
                     commandObject.ExecuteNonQuery();
@@ -125,7 +133,7 @@ namespace CareerCloud.ADODataAccessLayer
             //throw new NotImplementedException();
             queryString = @"update [JOB_PORTAL_DB].[dbo].[Applicant_Job_Applications]  set Applicant = @Applicant, Job = @Job, Application_Date = @Application_Date where Id =@Id";
 
-            using (SqlConnection connectionObject = new SqlConnection())
+            using (SqlConnection connectionObject = new SqlConnection(connectionString))
             {
                 SqlCommand commandObject = new SqlCommand(queryString,connectionObject);
 
