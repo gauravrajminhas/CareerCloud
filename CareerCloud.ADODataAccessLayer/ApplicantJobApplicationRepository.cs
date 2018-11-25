@@ -80,7 +80,7 @@ namespace CareerCloud.ADODataAccessLayer
 
 
                connectionObject.Close();
-               return pocos.ToList();
+               return pocos.Where(a => a != null).ToList();
             }
 
 

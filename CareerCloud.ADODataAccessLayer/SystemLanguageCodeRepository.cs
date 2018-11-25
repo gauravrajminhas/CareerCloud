@@ -67,7 +67,7 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     SystemLanguageCodePoco poco = new SystemLanguageCodePoco();
                     poco.LanguageID = reader.GetString(0);
-                    poco.Name = reader.GetName(1);
+                    poco.Name = reader.GetString(1);
                     poco.NativeName = reader.GetString(2);
                    
 
