@@ -7,6 +7,7 @@ namespace CareerCloud.DataAccessLayer
 {
     public interface IDataRepository<T>
     {
+        // Read and understand this Interface again !!!
         IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);
         IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
         T GetSingle(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
