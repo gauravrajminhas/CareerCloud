@@ -14,9 +14,12 @@ namespace CareerCloud.DataAccessLayer
         IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
         T GetSingle(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
 
-       // will be used by WCF i.e SOAP or ReST
+        // will be used by WCF i.e SOAP or ReST
+        // but will need to be validated  by a Valid() before doing a Add/Update at the business Logic Layer 
+        // no validation should happen at data Access Layer 
         void Add(params T[] pocos);
         void Update(params T[] pocos);
+
         void Remove(params T[] pocos);
         void CallStoredProc(string name, params Tuple<string, string>[] parameters);
     }

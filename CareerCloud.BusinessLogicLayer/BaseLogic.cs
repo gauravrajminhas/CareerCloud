@@ -10,9 +10,11 @@ namespace CareerCloud.BusinessLogicLayer
         where TPoco : IPoco
     {
         //_repository is a reference to IDataRepository<Type IPoco>
+        
         protected IDataRepository<TPoco> _repository;
 
         // constructor 
+        //injecting the repository to the constructor via child class 
         public BaseLogic(IDataRepository<TPoco> repository)
         {
             _repository = repository;
