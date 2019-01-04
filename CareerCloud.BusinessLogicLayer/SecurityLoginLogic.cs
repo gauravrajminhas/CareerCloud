@@ -26,6 +26,7 @@ public class SecurityLoginLogic : BaseLogic<SecurityLoginPoco>
         return VerifyHash(password, poco.Password);
     }
 
+    // here the validation has passed and the method is read to add data to the db 
     public override void Add(SecurityLoginPoco[] pocos)
     {
         Verify(pocos);
@@ -113,6 +114,8 @@ public class SecurityLoginLogic : BaseLogic<SecurityLoginPoco>
 
         if (exceptions.Count > 0)
         {
+            // what is this ? 
+            // throws all the exceptions at once after all the exceptions have been caught in a LIST<aggrigateExceptions>
             throw new AggregateException(exceptions);
         }
     }
@@ -164,6 +167,7 @@ public class SecurityLoginLogic : BaseLogic<SecurityLoginPoco>
 
         return Convert.ToBase64String(hashWithSaltBytes);
     }
+
     private bool VerifyHash(string plainText, string hashValue)
     {
         const int hashSizeInBytes = 64;
