@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace CareerCloud.BusinessLogicLayer
 {
@@ -35,6 +36,61 @@ namespace CareerCloud.BusinessLogicLayer
             foreach (var poco in pocos)
             {
                 // business Logic and validation 
+                if (String.IsNullOrEmpty(poco.CompanyWebsite))
+                {
+                    _exceptions.Add(new ValidationException(600, $"Valid website must exist"));
+                }
+                else
+                {
+                    string[] webSiteArraySplit = poco.CompanyWebsite.Split('.');
+                    if (webSiteArraySplit.Length > 2)
+                    {
+                        _exceptions.Add(new ValidationException(600, $"Valid website must exist"));
+                    }
+                    else
+                    {
+                        if (webSiteArraySplit[1].Equals("com") || webSiteArraySplit[1].Equals("ca") || webSiteArraySplit[1].Equals("biz"))
+                        {
+                            //doubt :- Havent use RegEx here to check ! will this work 
+                            break;
+                        }
+                        else
+                        {
+                            _exceptions.Add(new ValidationException(600, $"Valid website must exist"));
+                        }
+                    }
+                }
+           
+
+                if (string.IsNullOrEmpty(poco.ContactPhone))
+                {
+                    _exceptions.Add(new ValidationException(601, $"Contact Phone is required"));
+                }
+                else
+                {
+                    string[] phoneComponents = poco.ContactPhone.Split('-');
+                    if (phoneComponents.Length < 3)
+                    {
+                        _exceptions.Add(new ValidationException(601, $"Contact Phone is not in the required format."));
+                    }
+                    else
+                    {
+                        if (phoneComponents[0].Length < 3)
+                        {
+                            _exceptions.Add(new ValidationException(601, $"Contact Phone is not in the required format."));
+                        }
+                        else if (phoneComponents[1].Length < 3)
+                        {
+                            _exceptions.Add(new ValidationException(601, $"Contact Phone is not in the required format."));
+                        }
+                        else if (phoneComponents[2].Length < 4)
+                        {
+                            _exceptions.Add(new ValidationException(601, $"Contact Phone is not in the required format."));
+                        }
+                    }
+                }
+
+
 
             }
 
