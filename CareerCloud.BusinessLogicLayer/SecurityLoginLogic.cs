@@ -110,6 +110,8 @@ public class SecurityLoginLogic : BaseLogic<SecurityLoginPoco>
                 exceptions.Add(new ValidationException(705, "FullName for SecurityLogin {poco.Id} is required."));
             }
 
+          
+
         }
 
         if (exceptions.Count > 0)

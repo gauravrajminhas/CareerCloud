@@ -48,9 +48,14 @@ namespace CareerCloud.BusinessLogicLayer
 
             foreach (ApplicantEducationPoco poco in pocos)
             {
-                if (poco.Major.Length < 3)
+
+                if (String.IsNullOrEmpty(poco.Major))
                 {
-                    _exceptions.Add(new ValidationException(700, $"Major for POCO ID {poco.Id} Cannot be empty or less than 3 characters"));
+                    _exceptions.Add(new ValidationException(107, $"Major for POCO ID {poco.Id} Cannot be empty or less than 3 characters"));
+                }
+                else if (poco.Major.Length < 3)
+                {
+                    _exceptions.Add(new ValidationException(107, $"Major for POCO ID {poco.Id} Cannot be empty or less than 3 characters"));
                 } 
                 
                 if (poco.StartDate > DateTime.Today)
