@@ -10,6 +10,7 @@ namespace CareerCloud.DataAccessLayer
         // Read and understand this Interface again !!!
 
         // Will be used by Business layer
+
         IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);
         IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
         T GetSingle(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
