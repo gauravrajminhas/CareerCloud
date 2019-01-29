@@ -19,5 +19,12 @@ namespace CareerCloud.Pocos
 
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
+        //1 to 1 relationship with Securty login and security login roles 
+        public virtual SecurityLoginPoco SecurityLogins { get; set; }
+        
+        //one security login role has 1 security role
+        public virtual SecurityRolePoco SecurityRoles { get; set; }
+
+
     }
 }

@@ -15,5 +15,12 @@ namespace CareerCloud.Pocos
         public String Code { get; set; }
         public String Name { get; set; }
         public Guid Id { get ; set ; }
+
+
+        // many to 1 relationship with Applicant Profiles   and system country code 
+        public virtual ICollection<ApplicantProfilePoco> ApplicantProfiles { get; set; }
+
+        //1 to many relatiosnhip of SystemcountryCode to Applicant Work history 
+        public virtual ICollection<ApplicantWorkHistoryPoco> ApplicantWorkHistorys { get; set; }
     }
 }

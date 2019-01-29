@@ -31,7 +31,11 @@ namespace CareerCloud.Pocos
 
         [Column("Time_Stamp")]
         public Byte[] TimeStamp { get; set; }
-
-
+        
+        //Navigation Properties In ORM
+        //foriegn key relationship 
+        //As 1 Applicant Education Poco point to the 1 ApplicantProfilePoco
+        // this is virtual coz ER framework may provide Override the property and many provide impilmentation for the navigation. 
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
     }
 }

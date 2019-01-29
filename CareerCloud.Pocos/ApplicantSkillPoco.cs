@@ -30,6 +30,8 @@ namespace CareerCloud.Pocos
 
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
+        //navigation property to applicantProfile
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
 
     }
 }

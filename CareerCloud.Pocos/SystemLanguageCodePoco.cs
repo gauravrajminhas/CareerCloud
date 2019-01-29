@@ -17,6 +17,6 @@ namespace CareerCloud.Pocos
         public String Name { get; set; }
         [Column("Native_Name")]
         public String NativeName { get; set; }
-        public Guid Id {  get ;  set ; }
+        public Guid Id {    get ;   set ; }
     }
 }

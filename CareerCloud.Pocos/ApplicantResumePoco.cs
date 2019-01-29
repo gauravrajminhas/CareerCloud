@@ -17,5 +17,7 @@ namespace CareerCloud.Pocos
         public String Resume { get; set; }
         [Column("Last_Updated")] public DateTime? LastUpdated { get; set; }
 
+        // 1 Applicant has only 1 resume ? 
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
     }
 }

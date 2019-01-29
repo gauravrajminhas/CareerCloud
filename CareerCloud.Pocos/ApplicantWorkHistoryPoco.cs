@@ -37,6 +37,10 @@ namespace CareerCloud.Pocos
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
 
+        //1 to many relationship of Applicantprofile and Applicant work education history
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
 
+        //1 to many relatiosnhip of SystemcountryCode to Applicant Work history 
+        public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
     }
 }

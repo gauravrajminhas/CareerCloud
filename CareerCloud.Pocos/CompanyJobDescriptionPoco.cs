@@ -27,7 +27,8 @@ namespace CareerCloud.Pocos
 
 
 
-
+        //// 1 to 1 mapping between company job and company job description
+        public virtual CompanyJobPoco CompanyJobs { get; set; }
 
 
 

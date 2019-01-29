@@ -21,5 +21,7 @@ namespace CareerCloud.Pocos
         
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
+        // 1 to 1 mapping between company_job and company_jobEduacation
+        public virtual CompanyJobPoco ComaCompanyJobs { get; set; }
     }
 }

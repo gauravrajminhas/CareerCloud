@@ -47,11 +47,17 @@ namespace CareerCloud.Pocos
 
 
 
+        // 1 to 1 relationship between applicant profiles and security login
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
 
 
 
+        //1 to many relatiosnhip between security login  and security login logs 
+        public virtual ICollection<SecurityLoginsLogPoco> SecurityLoginsLogs { get; set; }
 
 
+        //1 to 1 relationship with Securty login and security login roles 
+        public virtual SecurityLoginsRolePoco SecurityLoginsRoles { get; set; }
 
     }
 
