@@ -30,8 +30,14 @@ namespace CareerCloud.Pocos
         // 1 to 1 mapping between company job and company job description 
         public virtual CompanyJobDescriptionPoco CompanyJobDescriptions { get; set; }
 
-        //// 1 to 1 mapping between company_job and company_jobEduacation
+        // 1 to 1 mapping between company_job and company_jobEduacation
         public virtual CompanyJobEducationPoco ComapJobEducations { get; set; }
+
+        //1 to many mapping between company_profiles and company_jobs
+        public virtual CompanyProfilePoco CompanyProfiles { get; set; }
+
+        //1 to many relationship of company_jobs and company_job_skills
+        public virtual ICollection<CompanyJobSkillPoco> CompanyJobSkills { get; set; }
 
     }
 }
