@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,5 +19,12 @@ namespace CareerCloud.Pocos
         [Column("Native_Name")]
         public String NativeName { get; set; }
         public Guid Id {    get ;   set ; }
+
+
+        //many to many relationship between company_description and langunage Id 
+       public virtual ICollection<CompanyDescriptionPoco> CompanyDescriptions { get; set; }
+
+
+
     }
 }

@@ -19,7 +19,11 @@ namespace CareerCloud.Pocos
         [Column("Company_Description")] public String CompanyDescription { get; set; }
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
+        //many to many relationship between company_description and langunage Id 
+        public virtual ICollection<SystemLanguageCodePoco> SystemLanguageCodes { get; set; }
 
+        //1 to many relationship between company_profile and company description  
+        public virtual CompanyProfilePoco CompanyProfiles { get; set; }
 
 
     }
