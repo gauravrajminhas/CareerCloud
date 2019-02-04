@@ -22,7 +22,7 @@ namespace CareerCloud.Pocos
 
         [Column("Job_Descriptions")] public String JobDescriptions { get; set; }
 
-
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
 

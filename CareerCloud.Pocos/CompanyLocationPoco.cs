@@ -13,6 +13,8 @@ namespace CareerCloud.Pocos
     {
         [Key]
         public Guid Id { get; set; }
+
+        [ForeignKey("CompanyProfiles")]
         public Guid Company { get; set; }
 
         //public String Province { get; set; }
@@ -24,7 +26,7 @@ namespace CareerCloud.Pocos
         [Column("Zip_Postal_Code")] public String PostalCode { get; set; }
 
 
-
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
 

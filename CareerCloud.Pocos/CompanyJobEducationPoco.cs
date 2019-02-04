@@ -19,7 +19,8 @@ namespace CareerCloud.Pocos
         public String Major { get; set; }
 
         public Int16 Importance { get; set; }
-        
+
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
         // 1 to 1 mapping between company_job and company_jobEduacation

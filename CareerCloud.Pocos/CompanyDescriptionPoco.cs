@@ -13,15 +13,23 @@ namespace CareerCloud.Pocos
     {
         [Key]
         public Guid Id { get; set; }
+
+        [ForeignKey("CompanyProfiles")]
         public Guid Company { get; set; }
+
+        [ForeignKey("SystemLanguageCodes")]
         public String LanguageId { get; set; }
         [Column("Company_Name")] public String CompanyName { get; set; }
         [Column("Company_Description")] public String CompanyDescription { get; set; }
+
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
-        //many to many relationship between company_description and langunage Id 
-        public virtual ICollection<SystemLanguageCodePoco> SystemLanguageCodes { get; set; }
+        
+        //1 to many relationship between System_Language_code and CompanyDescription 
+        public virtual SystemLanguageCodePoco SystemLanguageCodes { get; set; }
 
+        
         //1 to many relationship between company_profile and company description  
         public virtual CompanyProfilePoco CompanyProfiles { get; set; }
 

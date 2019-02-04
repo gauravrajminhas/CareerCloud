@@ -20,14 +20,15 @@ namespace CareerCloud.Pocos
         [ForeignKey("SecurityRoles")]
         public Guid Role { get; set; }
 
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
-        //1 to 1 relationship with Securty login and security login roles 
+        //1 to many relationship with Securty login and security login roles 
         // <<#doubt>> how to find this out ??? 
         // public virtual SecurityLoginPoco SecurityLogins { get; set; }
-        public virtual ICollection<SecurityLoginPoco> SecurityLogins { get; set; }
+        public virtual SecurityLoginPoco SecurityLogins { get; set; }
 
-        //one security login role has 1 security role
+        //one security login role has many security role
         public virtual SecurityRolePoco SecurityRoles { get; set; }
 
 

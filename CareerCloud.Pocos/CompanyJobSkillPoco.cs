@@ -14,6 +14,7 @@ namespace CareerCloud.Pocos
         [Key]
         public Guid Id { get; set; }
 
+        [ForeignKey("CompanyJobs")]
         public Guid Job { get; set; }
 
         public String Skill { get; set; }
@@ -22,6 +23,8 @@ namespace CareerCloud.Pocos
         public String SkillLevel { get; set; }
 
         public int Importance { get; set; }
+
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
         //1 to many relationship of company_jobs and company_job_skills

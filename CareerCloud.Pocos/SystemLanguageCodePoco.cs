@@ -11,17 +11,20 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("System_Language_Codes")]
-    public class SystemLanguageCodePoco : IPoco
+    public class SystemLanguageCodePoco //: IPoco   // Does not need to inhert from this field 
     {
         [Key]
         public String LanguageID { get; set; }
         public String Name { get; set; }
+
         [Column("Native_Name")]
         public String NativeName { get; set; }
-        public Guid Id {    get ;   set ; }
+
+        //BUG :- this Property does not exist  for this poco 
+        //public Guid Id {    get ;   set ; }
 
 
-        //many to many relationship between company_description and langunage Id 
+        //1 to many relationship between SystemLanguageCode and CompanyDescription
        public virtual ICollection<CompanyDescriptionPoco> CompanyDescriptions { get; set; }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CareerCloud.ADODataAccessLayer;
 using CareerCloud.DataAccessLayer;
 using CareerCloud.Pocos;
 
@@ -11,7 +12,9 @@ namespace CareerCloud.BusinessLogicLayer
     public class SystemCountryCodeLogic //: specialBaseLogic<SystemCountryCodePoco>
     {
         private List<ValidationException> _exceptions = new List<ValidationException>();
-        protected IDataRepository<SystemCountryCodePoco> _repository;
+
+        //<<#doubt>> 
+        protected IDataRepository<SystemCountryCodePoco> _repository = new SystemCountryCodeRepository();
 
         public SystemCountryCodeLogic(IDataRepository<SystemCountryCodePoco> repository) //: base(repository)
         {

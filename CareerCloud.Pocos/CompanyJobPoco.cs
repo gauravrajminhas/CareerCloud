@@ -22,7 +22,8 @@ namespace CareerCloud.Pocos
         [Column("Is_Inactive")] public Boolean IsInactive { get; set; }
 
         [Column("Is_Company_Hidden")] public Boolean IsCompanyHidden { get; set; }
-         
+
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
 

@@ -23,7 +23,7 @@ namespace CareerCloud.Pocos
         // how do i make this as not null ??
         [Column("Company_Logo")] public Byte[] CompanyLogo { get; set; }
 
-        
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
         //1 to many mapping between company_profiles and company_jobs

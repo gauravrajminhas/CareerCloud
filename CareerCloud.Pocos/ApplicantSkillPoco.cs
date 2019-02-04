@@ -14,6 +14,7 @@ namespace CareerCloud.Pocos
         [Key]
         public Guid Id { get; set; }
 
+        [ForeignKey("ApplicantProfiles")]
         public Guid Applicant { get; set; }
 
         public String Skill { get; set; }   
@@ -28,6 +29,7 @@ namespace CareerCloud.Pocos
  
         [Column("End_Year")] public int EndYear { get; set; }
 
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
         //navigation property to applicantProfile

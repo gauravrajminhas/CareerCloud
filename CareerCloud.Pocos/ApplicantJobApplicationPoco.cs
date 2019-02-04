@@ -14,12 +14,16 @@ namespace CareerCloud.Pocos
         [Key]
         public Guid Id { get; set; }
 
+        [ForeignKey("ApplicantProfiles")]
         public Guid Applicant { get; set; }
+
+        [ForeignKey("CompanyJobs")]
         public Guid Job { get; set; }
 
         [Column("Application_Date")]
         public DateTime ApplicationDate { get; set; }
 
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
         // 1 to many relationship between Applicant Profile and Applicant job Applications 

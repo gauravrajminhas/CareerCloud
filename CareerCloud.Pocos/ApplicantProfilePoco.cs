@@ -29,6 +29,7 @@ namespace CareerCloud.Pocos
         //Bug Not null currency :- can this Work ?  the String is ref type and can take null value 
         public String Currency { get; set; }
 
+        [ForeignKey("SystemCountryCodes")]
         [Column("Country_Code")]
         public string Country { get; set; }
 
@@ -45,9 +46,10 @@ namespace CareerCloud.Pocos
 
         [Column("Zip_Postal_Code")] public String PostalCode { get; set; }
 
+        [NotMapped]
         [Column("Time_Stamp")] public Byte[] TimeStamp { get; set; }
 
-
+        
         // as 1 Applicant profile poco points to many applicant education pocos ; thus the collection
         public virtual ICollection<ApplicantEducationPoco> ApplicantEducations { get; set; }
 
@@ -59,24 +61,23 @@ namespace CareerCloud.Pocos
         //public virtual ApplicantResumePoco ApplicantResumes { get; set; }
         public virtual ICollection<ApplicantResumePoco> ApplicantResumes { get; set; }
 
-       // many to 1 relationship with Applicant Profiles and system country code 
-        public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
-
         //1 to many relationship of Applicantprofile and Applicant work education history
         public virtual ICollection<ApplicantWorkHistoryPoco> ApplicantWorkHistorys { get; set; }
-
-
-
-
-
-        //1 to 1 relationship between applicant profies and security logins 
-        //<<#doubt>> according to the data its 1-1 mapping ; how to know otherwise ?
-        //public virtual SecurityLoginPoco SecurityLogins { get; set; }
-        public virtual ICollection<SecurityLoginPoco> SecurityLogins { get; set; }
 
         //1 to many relatioship between Applicant and Applicant Job Applicants 
         public virtual ICollection<ApplicantJobApplicationPoco> ApplicantJobApplications { get; set; }
 
+
+
+
+        // 1 to many relatiosnhip between security login and applicant profiles 
+        //<<#doubt>> according to the data its 1-1 mapping ; how to know otherwise ?
+        public virtual SecurityLoginPoco SecurityLogins { get; set; }
+        
+        // many to 1 relationship with Applicant Profiles and system country code 
+        public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
+
+        
 
 
     }
