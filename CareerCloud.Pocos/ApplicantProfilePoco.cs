@@ -16,6 +16,8 @@ namespace CareerCloud.Pocos
 
         public Guid Id { get; set; }
 
+
+        [ForeignKey("SecurityLogins")]
         public Guid Login { get; set; }
 
         [Column("Current_Salary")]
@@ -53,7 +55,9 @@ namespace CareerCloud.Pocos
         public virtual ICollection<ApplicantSkillPoco> ApplicantSkills { get; set; }
 
         //applicantResume is 1-1 mapping 
-        public virtual ApplicantResumePoco ApplicantResumes { get; set; }
+        //<<#doubt>>
+        //public virtual ApplicantResumePoco ApplicantResumes { get; set; }
+        public virtual ICollection<ApplicantResumePoco> ApplicantResumes { get; set; }
 
        // many to 1 relationship with Applicant Profiles and system country code 
         public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
@@ -61,8 +65,14 @@ namespace CareerCloud.Pocos
         //1 to many relationship of Applicantprofile and Applicant work education history
         public virtual ICollection<ApplicantWorkHistoryPoco> ApplicantWorkHistorys { get; set; }
 
+
+
+
+
         //1 to 1 relationship between applicant profies and security logins 
-        public virtual SecurityLoginPoco SecurityLogins { get; set; }
+        //<<#doubt>> according to the data its 1-1 mapping ; how to know otherwise ?
+        //public virtual SecurityLoginPoco SecurityLogins { get; set; }
+        public virtual ICollection<SecurityLoginPoco> SecurityLogins { get; set; }
 
         //1 to many relatioship between Applicant and Applicant Job Applicants 
         public virtual ICollection<ApplicantJobApplicationPoco> ApplicantJobApplications { get; set; }

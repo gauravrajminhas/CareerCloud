@@ -8,39 +8,44 @@ using CareerCloud.Pocos;
 
 namespace CareerCloud.BusinessLogicLayer
 {
-    public class SystemCountryCodeLogic : BaseLogic<SystemCountryCodePoco>
+    public class SystemCountryCodeLogic //: specialBaseLogic<SystemCountryCodePoco>
     {
         private List<ValidationException> _exceptions = new List<ValidationException>();
+        protected IDataRepository<SystemCountryCodePoco> _repository;
 
-        public SystemCountryCodeLogic(IDataRepository<SystemCountryCodePoco> repository) : base(repository)
+        public SystemCountryCodeLogic(IDataRepository<SystemCountryCodePoco> repository) //: base(repository)
         {
 
         }
 
-        public override void Add(SystemCountryCodePoco[] pocos)
-        {
-            this.Verify(pocos);
-            base.Add(pocos);
-        }
-
-        public override void Update(SystemCountryCodePoco[] pocos)
+        public void Add(SystemCountryCodePoco[] pocos)
         {
             this.Verify(pocos);
-            base.Add(pocos);
+            _repository.Add(pocos);
+            //base.Add(pocos);
+        }
+
+        public void Update(SystemCountryCodePoco[] pocos)
+        {
+            this.Verify(pocos);
+            _repository.Update(pocos);
+            //base.Add(pocos);
         }
 
 
-        protected override void Verify(SystemCountryCodePoco[] pocos)
+        protected  void Verify(SystemCountryCodePoco[] pocos)
         {
             foreach (var poco in pocos)
             {
-                // business Logic and validation \
+                // business Logic and validation 
 
                 if (String.IsNullOrEmpty(poco.Name))
                 {
                     _exceptions.Add(new ValidationException(900, "Cannot be empty"));
                 }
 
+                // Validation of Primary key property ! 
+                // cannot be null ! 
                 if (String.IsNullOrEmpty(poco.Code))
                 {
                     _exceptions.Add(new ValidationException(901, "Cannot be empty"));
@@ -57,4 +62,10 @@ namespace CareerCloud.BusinessLogicLayer
         }
 
     }
+
+
+    
+
+
+
 }

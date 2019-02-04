@@ -13,6 +13,8 @@ namespace CareerCloud.Pocos
     {
         [Key]
         public Guid Id { get; set; }
+
+        [ForeignKey("SecurityLogins")]
         public Guid Login {get; set;}
 
         [Column("Source_IP")] public String SourceIP { get; set; }

@@ -5,17 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using CareerCloud.Pocos;
 namespace CareerCloud.EntityFrameworkDataAccess
 {
     class CareerCloudContext :DbContext
     {
-        private static String connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
 
-        public CareerCloudContext() :base(connectionString)
+        //private static String connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
+        //Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True
+        public CareerCloudContext() :base(@"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True")
         {
-            
+            Database.Log = l => System.Diagnostics.Debug.WriteLine(l);
+
+            var type = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+            if (type == null)
+                throw new Exception("Do not remove, ensures static reference to System.Data.Entity.SqlServer");
         }
 
         public DbSet ApplicantEducations { get; set; }
@@ -41,7 +47,13 @@ namespace CareerCloud.EntityFrameworkDataAccess
         public DbSet SystemCountryCodes { get; set; }
         public DbSet SystemLanguageCodes { get; set; }
 
-       // public override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //<<#doubt>> After providing annotations why does this still required this defination ?
+            modelBuilder.Entity<SystemCountryCodePoco>().ToTable("System_Country_Codes");
+
+          // modelBuilder.Entity<CompanyJobPoco>().HasRequired(p => p.CompanyJobEducations).WithRequiredPrincipal(e =>e.)
+        }
         
 
     }

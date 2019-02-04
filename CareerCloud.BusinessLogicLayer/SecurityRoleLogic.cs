@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.BusinessLogicLayer
 {
+    
     public class SecurityRoleLogic : BaseLogic<SecurityRolePoco>
     {
         private List<ValidationException> _exceptions = new List<ValidationException>();
