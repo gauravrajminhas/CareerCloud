@@ -11,6 +11,9 @@ namespace CareerCloud.DataAccessLayer
 
         // Will be used by Business layer
 
+
+        //Generally, you can use params when the number of arguments can vary from 0 to infinity, and use an array when numbers of arguments vary from 1 to infinity.
+
         IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);
         IList<T> GetList(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
         T GetSingle(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] navigationProperties);
