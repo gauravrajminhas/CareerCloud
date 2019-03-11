@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CareerCloud.ADODataAccessLayer;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
 namespace CareerCloud.BusinessLogicLayer
@@ -18,7 +19,7 @@ namespace CareerCloud.BusinessLogicLayer
         
         //creating my very own _repository
         //<<#doubt>> is this correct 
-        private IDataRepository<SystemLanguageCodePoco> _repository = new SystemLanguageCodeRepository();
+        private IDataRepository<SystemLanguageCodePoco> _repository = new EFGenericRepository<SystemLanguageCodePoco>();
 
         public SystemLanguageCodeLogic(IDataRepository<SystemLanguageCodePoco> repository) //: base(repository)
         {
@@ -38,7 +39,6 @@ namespace CareerCloud.BusinessLogicLayer
             this.Verify(pocos);
             _repository.Add(pocos);
         }
-
 
         protected void Verify(SystemLanguageCodePoco[] pocos)
         {
@@ -70,6 +70,27 @@ namespace CareerCloud.BusinessLogicLayer
 
 
         }
+
+
+        public SystemLanguageCodePoco Get(string LanguageID)
+        {
+            return _repository.GetSingle(p => p.LanguageID == LanguageID);
+        }
+
+        public List<SystemLanguageCodePoco> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
+
+        public void Delete(SystemLanguageCodePoco[] pocos)
+        {
+            _repository.Remove(pocos);
+        }
+
+
+
+
 
     }
 }

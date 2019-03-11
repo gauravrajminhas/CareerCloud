@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 using CareerCloud.ADODataAccessLayer;
 using CareerCloud.DataAccessLayer;
 using CareerCloud.Pocos;
+//using CareerCloud.EntityFrameworkDataAccess;
 
 namespace CareerCloud.BusinessLogicLayer
 {
     public class SystemCountryCodeLogic //: specialBaseLogic<SystemCountryCodePoco>
     {
         private List<ValidationException> _exceptions = new List<ValidationException>();
+        private IDataRepository<SystemCountryCodePoco> _repository;
 
-        //<<#doubt>> 
-        protected IDataRepository<SystemCountryCodePoco> _repository = new SystemCountryCodeRepository();
+        //<<#doubt>> this will create a ADO repository not a EF repository 
+        //protected IDataRepository<SystemCountryCodePoco> _repository = new SystemCountryCodeRepository();
+        //private IDataRepository<SystemCountryCodePoco> _repository = new EntityFrameworkDataAccess.EFGenericRepository<SystemCountryCodePoco>();
+
 
         public SystemCountryCodeLogic(IDataRepository<SystemCountryCodePoco> repository) //: base(repository)
         {
+            _repository = repository;
 
         }
 
@@ -63,6 +68,26 @@ namespace CareerCloud.BusinessLogicLayer
 
 
         }
+
+
+        public List<SystemCountryCodePoco> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
+        public SystemCountryCodePoco Get(string Code)
+        {
+            return _repository.GetSingle(c => c.Code == Code);
+        }
+
+
+        public void Delete(SystemCountryCodePoco[] pocos)
+        {
+            _repository.Remove(pocos);
+        }
+
+
+
 
     }
 

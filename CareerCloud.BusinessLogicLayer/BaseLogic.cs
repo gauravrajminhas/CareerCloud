@@ -30,6 +30,7 @@ namespace CareerCloud.BusinessLogicLayer
         // Get Data from the Data base
         public virtual TPoco Get(Guid id)
         {
+            // takes GUID for sure!!! 
             return _repository.GetSingle(c => c.Id == id);
         }
 

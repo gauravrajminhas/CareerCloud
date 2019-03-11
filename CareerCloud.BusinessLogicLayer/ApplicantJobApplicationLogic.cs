@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using CareerCloud.DataAccessLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 
 namespace CareerCloud.BusinessLogicLayer
 {
@@ -13,8 +14,12 @@ namespace CareerCloud.BusinessLogicLayer
     {
         // Doubt :- why do i have to write the constructor this way ? what forces us to pass argumesnts or use this signature, for the  constructors ?
         // inject the repository to BaseLogic 
-        public  ApplicantJobApplicationLogic(IDataRepository<ApplicantJobApplicationPoco> repository) :base(repository)
+        
+
+
+        public  ApplicantJobApplicationLogic(IDataRepository<ApplicantJobApplicationPoco> _repository) :base(_repository)
         {
+            //_repository = new EFGenericRepository<ApplicantJobApplicationPoco>();
             //nothing special to be done in the contructore 
         }
 

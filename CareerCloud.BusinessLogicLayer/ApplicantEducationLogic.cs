@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CareerCloud.Pocos;
 using CareerCloud.DataAccessLayer;
-
+using CareerCloud.EntityFrameworkDataAccess;
 
 
 namespace CareerCloud.BusinessLogicLayer
@@ -20,8 +20,9 @@ namespace CareerCloud.BusinessLogicLayer
 
         public ApplicantEducationLogic(IDataRepository<ApplicantEducationPoco> repository) : base(repository)
         {
+            //repository = new EFGenericRepository<ApplicantEducationPoco>();
             // Abstract Class can do this 
-           // _repositor = repository;
+            // _repositor = repository;
         }
 
         public override void Add(ApplicantEducationPoco[] pocos)

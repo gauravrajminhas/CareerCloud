@@ -57,10 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CareerCloud.BusinessLogicLayer\CareerCloud.BusinessLogicLayer.csproj">
-      <Project>{45f47344-1961-4410-a1ce-8694c017abde}</Project>
-      <Name>CareerCloud.BusinessLogicLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CareerCloud.DataAccessLayer\CareerCloud.DataAccessLayer.csproj">
       <Project>{0f073e4f-e53a-428b-a284-1d37e01d7a66}</Project>
       <Name>CareerCloud.DataAccessLayer</Name>

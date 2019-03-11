@@ -12,15 +12,20 @@ namespace CareerCloud.EntityFrameworkDataAccess
 {
     class CareerCloudContext :DbContext
     {
+        // to solve the circular reference problem 
+        
+        
         //private static string connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
         //
         //Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True
         // public CareerCloudContext() :base(@"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True")
-        public CareerCloudContext() : base(@"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True")
+        public CareerCloudContext(bool createProxy = true) : base(@"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True")
         {
              //connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
-
+            
             Database.Log = l => System.Diagnostics.Debug.WriteLine(l);
+
+            Configuration.ProxyCreationEnabled = createProxy;
 
             var type = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
             if (type == null)

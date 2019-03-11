@@ -73,6 +73,10 @@
       <Project>{0f073e4f-e53a-428b-a284-1d37e01d7a66}</Project>
       <Name>CareerCloud.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CareerCloud.EntityFrameworkDataAccess\CareerCloud.EntityFrameworkDataAccess.csproj">
+      <Project>{9e0d8615-201b-4a74-8e81-be3d9cdd263a}</Project>
+      <Name>CareerCloud.EntityFrameworkDataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CareerCloud.Pocos\CareerCloud.Pocos.csproj">
       <Project>{56ec6d03-0b56-499a-bc1a-a0b58a2b9373}</Project>
       <Name>CareerCloud.Pocos</Name>
