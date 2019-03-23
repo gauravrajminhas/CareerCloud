@@ -11,6 +11,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
 {
     public class EFGenericRepository<SourceType> : IDataRepository<SourceType>
         where SourceType : class 
+
     {
         private CareerCloudContext _context;
 
