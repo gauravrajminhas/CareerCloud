@@ -14,11 +14,11 @@ namespace CareerCloud.Pocos
     public class SystemLanguageCodePoco //: IPoco   // Does not need to inhert from this field 
     {
         [Key]
-        public String LanguageID { get; set; }
-        public String Name { get; set; }
+        public string LanguageID { get; set; }
+        public string Name { get; set; }
 
         [Column("Native_Name")]
-        public String NativeName { get; set; }
+        public string NativeName { get; set; }
 
         //BUG :- this Property does not exist  for this poco 
         //public Guid Id {    get ;   set ; }

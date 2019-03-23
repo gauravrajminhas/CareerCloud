@@ -15,6 +15,8 @@ namespace CareerCloud.BusinessLogicLayer
     //
     public class SystemLanguageCodeLogic //: BaseLogic<SystemLanguageCodePoco>
     {
+
+        //<<#doubt>> <<#bug>>
         private List<ValidationException> _exceptions = new List<ValidationException>();
         
         //creating my very own _repository
@@ -23,7 +25,7 @@ namespace CareerCloud.BusinessLogicLayer
 
         public SystemLanguageCodeLogic(IDataRepository<SystemLanguageCodePoco> repository) //: base(repository)
         {
-
+            //repository = _repository;
         }
 
         //business logic is applied only for Add and Update functions. 
