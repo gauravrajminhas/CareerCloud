@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Career Cloud</h1>
+    <p class="lead">Humber's Career Cloud Application, Apply for 1000s of IT / ITES / QA / BA and other software related jobs</p>
+    <p><a href="https://www.humber.ca/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Applicants</h2>
+        <p>
+            Look at your submitted applications, Profile details and applied jobs
+        </p>
+        <p><a class="btn btn-default" @Html.ActionLink("Learn more>>","Index",new {Controller="ApplicantProfile"})</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Companies</h2>
+        <p>Look at your submitted jobs, company Profile details and applicants.</p>
+        <p><a class="btn btn-default" @Html.ActionLink("Learn more>>","Index",new {Controller="CompanyProfile"})</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Support</h2>
+        <p>Talk to our help desk for more support</p>
+        <p><a class="btn btn-default" href="https://www.humber.ca/">Learn more &raquo;</a></p>
+    </div>
+</div>

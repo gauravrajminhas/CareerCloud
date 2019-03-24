@@ -1,0 +1,119 @@
+﻿@model CareerCloud.Pocos.ApplicantProfilePoco
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ApplicantProfilePoco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityLogins.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecurityLogins.Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SystemCountryCodes.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SystemCountryCodes.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Province)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Province)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+
+
+
+
+
+        <dt>
+            Work history
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Applicant's Work History", "Index", new { Controller = "ApplicantWorkHistory", id = @Model.Id })
+        </dd>
+
+        <dt>
+            Skills
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Applicant's Skills", "Index", new { Controller = "ApplicantSkill", id = @Model.Id })
+        </dd>
+
+        <dt>
+            Education
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Applicant's Education", "Index", new { Controller = "ApplicantEducation", id = @Model.Id })
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

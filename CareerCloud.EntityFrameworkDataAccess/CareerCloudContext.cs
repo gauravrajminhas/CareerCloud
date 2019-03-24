@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using CareerCloud.Pocos;
 namespace CareerCloud.EntityFrameworkDataAccess
 {
-    class CareerCloudContext :DbContext
+    public class CareerCloudContext :DbContext
     {
         // to solve the circular reference problem 
         
@@ -31,6 +31,27 @@ namespace CareerCloud.EntityFrameworkDataAccess
             if (type == null)
                 throw new Exception("Do not remove, ensures static reference to System.Data.Entity.SqlServer");
         }
+
+
+        //Bug :- have to create parameter-less constructor coz the MVC scaffolding for creating model would not work 
+
+        public CareerCloudContext() : base(@"Data Source=LAPTOP-RP1PV1SH\HUMBERBRIDGING;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True")
+        {
+            //connectionString = ConfigurationManager.ConnectionStrings["myHumberDB"].ConnectionString;
+
+            Database.Log = l => System.Diagnostics.Debug.WriteLine(l);
+
+            //Configuration.ProxyCreationEnabled = createProxy;
+
+            var type = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+            if (type == null)
+                throw new Exception("Do not remove, ensures static reference to System.Data.Entity.SqlServer");
+        }
+
+
+
+
+
 
         public DbSet ApplicantEducations { get; set; }
         public DbSet ApplicantJobApplications { get; set; }
@@ -62,7 +83,27 @@ namespace CareerCloud.EntityFrameworkDataAccess
 
           // modelBuilder.Entity<CompanyJobPoco>().HasRequired(p => p.CompanyJobEducations).WithRequiredPrincipal(e =>e.)
         }
-        
 
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.CompanyProfilePoco> CompanyProfilePocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.CompanyLocationPoco> CompanyLocationPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.ApplicantProfilePoco> ApplicantProfilePocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.SecurityLoginPoco> SecurityLoginPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.SystemCountryCodePoco> SystemCountryCodePocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.ApplicantWorkHistoryPoco> ApplicantWorkHistoryPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.ApplicantEducationPoco> ApplicantEducationPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.ApplicantSkillPoco> ApplicantSkillPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.CompanyJobPoco> CompanyJobPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.CompanyJobDescriptionPoco> CompanyJobDescriptionPocoes { get; set; }
+
+        public System.Data.Entity.DbSet<CareerCloud.Pocos.ApplicantJobApplicationPoco> ApplicantJobApplicationPocoes { get; set; }
     }
 }
