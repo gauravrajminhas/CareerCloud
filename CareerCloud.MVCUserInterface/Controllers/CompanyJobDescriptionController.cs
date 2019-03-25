@@ -47,10 +47,20 @@ namespace CareerCloud.MVCUserInterface.Controllers
         }
 
         // GET: CompanyJobDescription/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid? jobId)
         {
-            ViewBag.Job = new SelectList(db.CompanyJobPocoes, "Id", "Id");
-            return View();
+            if (jobId != null)
+            {
+                ViewBag.Job = new SelectList(db.CompanyJobPocoes, "jobId", "jobId");
+                ViewBag.jobId = jobId;
+                return View();
+            }
+            else
+            {
+                ViewBag.Job = new SelectList(db.CompanyJobPocoes, "Id", "Id");
+                return View();
+            }
+            
         }
 
         // POST: CompanyJobDescription/Create

@@ -55,8 +55,18 @@
         </dt>
 
         <dd>
-            @Html.ActionLink("All Company Location","Index", new { Controller = "CompanyLocation", id=@Model.Id})
+            @Html.ActionLink("All Company Location", "Index", new { Controller = "CompanyLocation", id = @Model.Id })
         </dd>
+
+
+        <dt>
+            Jobs Posted
+        </dt>
+
+        <dd>
+            @Html.ActionLink("All Jobs Posted", "Index", new { Controller = "CompanyJob", id = @Model.Id })
+        </dd>
+
 
     </dl>
 </div>

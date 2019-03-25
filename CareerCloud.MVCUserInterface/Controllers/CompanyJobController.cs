@@ -16,10 +16,19 @@ namespace CareerCloud.MVCUserInterface.Controllers
         private CareerCloudContext db = new CareerCloudContext();
 
         // GET: CompanyJob
-        public ActionResult Index()
+        public ActionResult Index(Guid? id)
         {
-            var companyJobPocoes = db.CompanyJobPocoes.Include(c => c.CompanyProfiles);
-            return View(companyJobPocoes.ToList());
+            if (id!=null)
+            {
+                var companyJobPocoes = db.CompanyJobPocoes.Where(cjp => cjp.Company == id).Include(c => c.CompanyProfiles);
+                return View(companyJobPocoes.ToList());
+            }
+            else
+            {
+                var companyJobPocoes = db.CompanyJobPocoes.Include(c => c.CompanyProfiles);
+                return View(companyJobPocoes.ToList());
+            }
+            
         }
 
         // GET: CompanyJob/Details/5
